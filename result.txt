@@ -1,0 +1,4413 @@
+
+       _____          _       _____           _ _          
+      / ____|        | |     / ____|         (_) |         
+     | |     ___   __| | ___| (___   ___ _ __ _| |__   ___ 
+     | |    / _ \ / _` |/ _ \___ \ / __| '__| | '_ \ / _ \
+     | |___| (_) | (_| |  __/____) | (__| |  | | |_) |  __/
+      \_____\___/ \__,_|\___|_____/ \___|_|  |_|_.__/ \___|
+    
+# Rapport CodeScribe
+
+Chemin scanné : `/Users/benjamin/Cursor project/hello-tailwind`
+
+## 1. Arborescence du projet
+
+**Arborescence du projet** (racine : `/Users/benjamin/Cursor project/hello-tailwind`)
+
+- **dist/**
+  - **hello-tailwind/**
+    - index.html
+- package.json
+- **src/**
+  - **app/**
+    - app-routing.module.ts
+    - app.component.html
+    - app.component.ts
+    - app.module.ts
+    - **components/**
+      - **sidebar/**
+        - sidebar.component.html
+        - sidebar.component.scss
+        - sidebar.component.ts
+        - sidebar.config.ts
+        - sidebar.module.ts
+        - sidebar.service.ts
+        - sidebar.types.ts
+      - **toolbar/**
+        - toolbar.component.ts
+    - **config/**
+      - supabase.config.ts
+    - **guards/**
+      - auth.guard.ts
+    - **pages/**
+      - **auth/**
+        - **login/**
+          - login.component.html
+          - login.component.ts
+      - **dashboard/**
+        - dashboard.component.html
+        - dashboard.component.ts
+        - dashboard.module.ts
+        - dashboard.service.ts
+      - **event/**
+        - event-reservation-type.service.ts
+        - event.component.html
+        - event.component.ts
+        - event.model.ts
+        - event.service.ts
+      - **pmm/**
+        - pmm.component.html
+        - pmm.component.ts
+        - pmm.model.ts
+        - pmm.service.ts
+      - **reservation-type/**
+        - reservation-type.component.html
+        - reservation-type.component.ts
+        - reservation-type.model.ts
+        - reservation-type.service.ts
+      - **users/**
+        - user.model.ts
+        - users.component.html
+        - users.component.ts
+        - users.service.ts
+    - **services/**
+      - auth.service.ts
+      - sidebar.service.ts
+    - **types/**
+      - supabase.ts
+      - user.model.ts
+  - index.html
+  - main.ts
+
+## 2. Contenu des fichiers
+
+### Sommaire
+
+- [dist/hello-tailwind/index.html](#dist-hello-tailwind-index.html)
+- [package.json](#package.json)
+- [src/app/app-routing.module.ts](#src-app-app-routing.module.ts)
+- [src/app/app.component.html](#src-app-app.component.html)
+- [src/app/app.component.ts](#src-app-app.component.ts)
+- [src/app/app.module.ts](#src-app-app.module.ts)
+- [src/app/components/sidebar/sidebar.component.html](#src-app-components-sidebar-sidebar.component.html)
+- [src/app/components/sidebar/sidebar.component.scss](#src-app-components-sidebar-sidebar.component.scss)
+- [src/app/components/sidebar/sidebar.component.ts](#src-app-components-sidebar-sidebar.component.ts)
+- [src/app/components/sidebar/sidebar.config.ts](#src-app-components-sidebar-sidebar.config.ts)
+- [src/app/components/sidebar/sidebar.module.ts](#src-app-components-sidebar-sidebar.module.ts)
+- [src/app/components/sidebar/sidebar.service.ts](#src-app-components-sidebar-sidebar.service.ts)
+- [src/app/components/sidebar/sidebar.types.ts](#src-app-components-sidebar-sidebar.types.ts)
+- [src/app/components/toolbar/toolbar.component.ts](#src-app-components-toolbar-toolbar.component.ts)
+- [src/app/config/supabase.config.ts](#src-app-config-supabase.config.ts)
+- [src/app/guards/auth.guard.ts](#src-app-guards-auth.guard.ts)
+- [src/app/pages/auth/login/login.component.html](#src-app-pages-auth-login-login.component.html)
+- [src/app/pages/auth/login/login.component.ts](#src-app-pages-auth-login-login.component.ts)
+- [src/app/pages/dashboard/dashboard.component.html](#src-app-pages-dashboard-dashboard.component.html)
+- [src/app/pages/dashboard/dashboard.component.ts](#src-app-pages-dashboard-dashboard.component.ts)
+- [src/app/pages/dashboard/dashboard.module.ts](#src-app-pages-dashboard-dashboard.module.ts)
+- [src/app/pages/dashboard/dashboard.service.ts](#src-app-pages-dashboard-dashboard.service.ts)
+- [src/app/pages/event/event-reservation-type.service.ts](#src-app-pages-event-event-reservation-type.service.ts)
+- [src/app/pages/event/event.component.html](#src-app-pages-event-event.component.html)
+- [src/app/pages/event/event.component.ts](#src-app-pages-event-event.component.ts)
+- [src/app/pages/event/event.model.ts](#src-app-pages-event-event.model.ts)
+- [src/app/pages/event/event.service.ts](#src-app-pages-event-event.service.ts)
+- [src/app/pages/pmm/pmm.component.html](#src-app-pages-pmm-pmm.component.html)
+- [src/app/pages/pmm/pmm.component.ts](#src-app-pages-pmm-pmm.component.ts)
+- [src/app/pages/pmm/pmm.model.ts](#src-app-pages-pmm-pmm.model.ts)
+- [src/app/pages/pmm/pmm.service.ts](#src-app-pages-pmm-pmm.service.ts)
+- [src/app/pages/reservation-type/reservation-type.component.html](#src-app-pages-reservation-type-reservation-type.component.html)
+- [src/app/pages/reservation-type/reservation-type.component.ts](#src-app-pages-reservation-type-reservation-type.component.ts)
+- [src/app/pages/reservation-type/reservation-type.model.ts](#src-app-pages-reservation-type-reservation-type.model.ts)
+- [src/app/pages/reservation-type/reservation-type.service.ts](#src-app-pages-reservation-type-reservation-type.service.ts)
+- [src/app/pages/users/user.model.ts](#src-app-pages-users-user.model.ts)
+- [src/app/pages/users/users.component.html](#src-app-pages-users-users.component.html)
+- [src/app/pages/users/users.component.ts](#src-app-pages-users-users.component.ts)
+- [src/app/pages/users/users.service.ts](#src-app-pages-users-users.service.ts)
+- [src/app/services/auth.service.ts](#src-app-services-auth.service.ts)
+- [src/app/services/sidebar.service.ts](#src-app-services-sidebar.service.ts)
+- [src/app/types/supabase.ts](#src-app-types-supabase.ts)
+- [src/app/types/user.model.ts](#src-app-types-user.model.ts)
+- [src/index.html](#src-index.html)
+- [src/main.ts](#src-main.ts)
+
+### dist/hello-tailwind/index.html
+<a id='dist-hello-tailwind-index.html'></a>
+
+html
+<!DOCTYPE html><html lang="en"><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <meta charset="utf-8">
+  <title>PMM - Plateforme de Gestion des Manifestations</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v143/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+<style>*,:before,:after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / .5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}body{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}</style><link rel="stylesheet" href="styles.61e024d33a83b986.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.61e024d33a83b986.css"></noscript></head>
+<body>
+  <app-root></app-root>
+<script src="runtime.ba7ba209a7b7234d.js" type="module"></script><script src="polyfills.cee8e39c5cda6361.js" type="module"></script><script src="main.797db4f8c2b68805.js" type="module"></script>
+
+</body></html>
+
+
+### package.json
+<a id='package.json'></a>
+
+json
+{
+  "name": "hello-tailwind",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.1.0",
+    "@angular/common": "^15.1.0",
+    "@angular/compiler": "^15.1.0",
+    "@angular/core": "^15.1.0",
+    "@angular/forms": "^15.1.0",
+    "@angular/platform-browser": "^15.1.0",
+    "@angular/platform-browser-dynamic": "^15.1.0",
+    "@angular/router": "^15.1.0",
+    "@supabase/supabase-js": "2.39.4",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "overrides": {
+    "@supabase/supabase-js": {
+      "@supabase/gotrue-js": "2.61.0"
+    }
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.1.4",
+    "@angular/cli": "~15.1.4",
+    "@angular/compiler-cli": "^15.1.0",
+    "@types/jasmine": "~4.3.0",
+    "autoprefixer": "^10.4.20",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "~4.9.4"
+  }
+}
+
+
+
+### src/app/app-routing.module.ts
+<a id='src-app-app-routing.module.ts'></a>
+
+typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
+import { PMMComponent } from './pages/pmm/pmm.component';
+import { EventComponent } from './pages/event/event.component';
+import { ReservationTypeComponent } from './pages/reservation-type/reservation-type.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'pmm', component: PMMComponent, canActivate: [AuthGuard] },
+  { path: 'events', component: EventComponent, canActivate: [AuthGuard] },
+  { path: 'reservation-types', component: ReservationTypeComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '/login' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+
+### src/app/app.component.html
+<a id='src-app-app.component.html'></a>
+
+html
+<app-toolbar></app-toolbar>
+<div class="flex">
+  <app-sidebar></app-sidebar>
+  <main 
+    class="flex-1 p-6 mt-16 transition-all duration-300"
+    [ngClass]="{'lg:ml-64': sidebarService.isOpen}"
+  >
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+
+
+### src/app/app.component.ts
+<a id='src-app-app.component.ts'></a>
+
+typescript
+import { Component } from '@angular/core';
+import { SidebarService } from './services/sidebar.service';
+import { AuthService } from './services/auth.service';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <ng-container *ngIf="authService.isAuthenticated(); else loginPage">
+      <app-toolbar></app-toolbar>
+      <div class="flex">
+        <app-sidebar></app-sidebar>
+        <main 
+          class="flex-1 p-6 mt-16 transition-all duration-300"
+          [ngStyle]="{
+            'margin-left': sidebarService.isOpen ? '250px' : '64px'
+          }"
+        >
+          <router-outlet></router-outlet>
+        </main>
+      </div>
+    </ng-container>
+
+    <ng-template #loginPage>
+      <div class="min-h-screen bg-[#001A70]">
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
+  `
+})
+export class AppComponent {
+  constructor(
+    public sidebarService: SidebarService,
+    public authService: AuthService
+  ) {}
+}
+
+
+
+### src/app/app.module.ts
+<a id='src-app-app.module.ts'></a>
+
+typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UsersComponent } from './pages/users/users.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { PMMComponent } from './pages/pmm/pmm.component';
+import { EventComponent } from './pages/event/event.component';
+import { CommonModule } from '@angular/common';
+import { ReservationTypeComponent } from './pages/reservation-type/reservation-type.component';
+import { SidebarModule } from './components/sidebar/sidebar.module';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    UsersComponent,
+    ToolbarComponent,
+    PMMComponent,
+    EventComponent,
+    ReservationTypeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    SidebarModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+
+
+### src/app/components/sidebar/sidebar.component.html
+<a id='src-app-components-sidebar-sidebar.component.html'></a>
+
+html
+<aside [class.collapsed]="!sidebarService.isOpen" class="sidebar">
+  <nav class="sidebar-nav">
+    <div *ngFor="let section of sections" class="sidebar-section">
+      <h3 *ngIf="section.title && sidebarService.isOpen" class="section-title">
+        {{ section.title }}
+      </h3>
+
+      <ul class="nav-links">
+        <li *ngFor="let link of section.links">
+          <a [routerLink]="link.path" 
+             [routerLinkActive]="'active'"
+             [title]="!sidebarService.isOpen ? link.label : ''"
+             class="flex items-center">
+            <i class="material-icons text-white">{{ link.icon }}</i>
+            <span *ngIf="sidebarService.isOpen">{{ link.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</aside> 
+
+
+### src/app/components/sidebar/sidebar.component.scss
+<a id='src-app-components-sidebar-sidebar.component.scss'></a>
+
+scss
+.sidebar {
+  @apply fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white shadow-lg transition-all duration-300 ease-in-out z-10;
+  width: 250px;
+
+  &.collapsed {
+    width: 64px;
+
+    .section-title {
+      @apply hidden;
+    }
+
+    .nav-links {
+      a {
+        span {
+          @apply hidden;
+        }
+        i {
+          @apply mr-0;
+        }
+      }
+    }
+  }
+}
+
+.sidebar-header {
+  @apply h-14 flex items-center px-4 border-b;
+}
+
+.collapse-btn {
+  @apply p-2 rounded-full hover:bg-gray-100 transition-colors;
+
+  i {
+    @apply text-[#001A70];
+    font-family: 'Material Icons';
+    font-style: normal;
+  }
+}
+
+.sidebar-nav {
+  @apply py-4 h-full overflow-y-auto;
+}
+
+.sidebar-section {
+  @apply mb-6;
+
+  .section-title {
+    @apply px-4 text-sm font-medium text-gray-500 mb-2;
+  }
+}
+
+.nav-links {
+  @apply space-y-1;
+
+  a {
+    @apply flex items-center px-4 py-2 text-[#001A70] hover:bg-gray-50 transition-colors;
+    
+    &.active {
+      @apply bg-[#001A70] text-white hover:bg-[#002395];
+
+      i {
+        @apply text-white;
+      }
+    }
+
+    i {
+      @apply mr-3 text-xl text-[#001A70];
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    span {
+      @apply text-sm;
+    }
+  }
+} 
+
+
+### src/app/components/sidebar/sidebar.component.ts
+<a id='src-app-components-sidebar-sidebar.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { SidebarService } from '../../services/sidebar.service';
+import { SidebarSection, SidebarLink } from './sidebar.types';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent implements OnInit {
+  sections: SidebarSection[] = [];
+  currentPath = '';
+  isCollapsed = false;
+
+  constructor(
+    private readonly router: Router,
+    public sidebarService: SidebarService
+  ) {}
+
+  async ngOnInit() {
+    // Surveiller les changements de route
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.currentPath = this.router.url;
+    });
+
+    // Charger les sections de la sidebar
+    await this.loadSections();
+  }
+
+  private async loadSections() {
+    try {
+      this.sections = await this.sidebarService.getSidebarSections();
+    } catch (error) {
+      console.error('Erreur lors du chargement de la sidebar:', error);
+    }
+  }
+
+  isLinkActive(link: SidebarLink): boolean {
+    return this.sidebarService.isLinkActive(link, this.currentPath);
+  }
+
+  toggleCollapse() {
+    this.isCollapsed = !this.isCollapsed;
+  }
+} 
+
+
+### src/app/components/sidebar/sidebar.config.ts
+<a id='src-app-components-sidebar-sidebar.config.ts'></a>
+
+typescript
+import { SidebarSection } from './sidebar.types';
+
+export const SIDEBAR_CONFIG: SidebarSection[] = [
+  {
+    links: [
+      {
+        path: '/dashboard',
+        icon: 'dashboard',
+        label: 'Tableau de bord'
+      }
+    ]
+  },
+  {
+    title: 'Gestion',
+    links: [
+      {
+        path: '/pmm',
+        icon: 'business',
+        label: 'PMM',
+        roles: ['PLATFORM_ADMIN']
+      },
+      {
+        path: '/events',
+        icon: 'event',
+        label: 'Événements',
+        roles: ['PLATFORM_ADMIN', 'PMM_ADMIN']
+      },
+      {
+        path: '/reservation-types',
+        icon: 'list_alt',
+        label: 'Types de réservation',
+        roles: ['PLATFORM_ADMIN', 'PMM_ADMIN']
+      },
+      {
+        path: '/users',
+        icon: 'people',
+        label: 'Utilisateurs',
+        roles: ['PLATFORM_ADMIN', 'PMM_ADMIN']
+      }
+    ]
+  }
+]; 
+
+
+### src/app/components/sidebar/sidebar.module.ts
+<a id='src-app-components-sidebar-sidebar.module.ts'></a>
+
+typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './sidebar.component';
+
+@NgModule({
+  declarations: [
+    SidebarComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
+  exports: [
+    SidebarComponent
+  ]
+})
+export class SidebarModule { } 
+
+
+### src/app/components/sidebar/sidebar.service.ts
+<a id='src-app-components-sidebar-sidebar.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { SidebarLink, SidebarSection } from './sidebar.types';
+import { SIDEBAR_CONFIG } from './sidebar.config';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SidebarService {
+  constructor(private readonly authService: AuthService) {}
+
+  async getSidebarSections(): Promise<SidebarSection[]> {
+    // Pour l'instant, on retourne directement la configuration
+    // On pourra ajouter la gestion des rôles plus tard
+    return SIDEBAR_CONFIG;
+  }
+
+  isLinkActive(link: SidebarLink, currentPath: string): boolean {
+    return currentPath.startsWith(link.path);
+  }
+} 
+
+
+### src/app/components/sidebar/sidebar.types.ts
+<a id='src-app-components-sidebar-sidebar.types.ts'></a>
+
+typescript
+export interface SidebarLink {
+  path: string;
+  icon: string;
+  label: string;
+  roles?: string[];
+}
+
+export interface SidebarSection {
+  title?: string;
+  links: SidebarLink[];
+} 
+
+
+### src/app/components/toolbar/toolbar.component.ts
+<a id='src-app-components-toolbar-toolbar.component.ts'></a>
+
+typescript
+import { Component } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { SidebarService } from '../../services/sidebar.service';
+
+@Component({
+  selector: 'app-toolbar',
+  template: `
+    <nav class="bg-[#001A70] fixed top-0 right-0 left-0 z-20 shadow-lg">
+      <div class="max-w-full mx-auto px-4">
+        <div class="flex justify-between h-16">
+          <!-- Logo et titre -->
+          <div class="flex items-center space-x-4">
+            <button 
+              (click)="sidebarService.toggle()"
+              class="p-2 rounded-md text-white hover:bg-[#002395] transition-colors"
+            >
+              <i class="material-icons">
+                {{ sidebarService.isOpen ? 'menu_open' : 'menu' }}
+              </i>
+            </button>
+            <div class="flex items-center">
+              <img src="assets/marine-nationale.svg" alt="Marine Nationale" class="h-8 w-8 mr-3">
+              <span class="text-xl font-bold text-white">Marine Nationale</span>
+            </div>
+          </div>
+
+          <!-- Menu utilisateur -->
+          <div class="flex items-center">
+            <div class="flex items-center space-x-3">
+              <span class="text-white text-sm">
+                {{ getUserDisplayName() }}
+              </span>
+              <div class="h-8 w-8 rounded-full bg-[#002395] flex items-center justify-center border-2 border-white">
+                <span class="text-white text-sm">{{ getUserInitials() }}</span>
+              </div>
+              <button 
+                (click)="authService.signOut()" 
+                class="ml-4 px-3 py-2 text-sm text-white hover:bg-[#002395] rounded-md transition-colors"
+              >
+                Déconnexion
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  `
+})
+export class ToolbarComponent {
+  constructor(
+    public authService: AuthService,
+    public sidebarService: SidebarService
+  ) {}
+
+  getUserDisplayName(): string {
+    const user = this.authService.getCurrentUser();
+    if (!user) return 'Utilisateur';
+    return `${user.grade ? user.grade + ' ' : ''}${user.name}`;
+  }
+
+  getUserInitials(): string {
+    const user = this.authService.getCurrentUser();
+    if (!user?.name) return 'U';
+    return user.name
+      .split(' ')
+      .map((n: string) => n[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  }
+} 
+
+
+### src/app/config/supabase.config.ts
+<a id='src-app-config-supabase.config.ts'></a>
+
+typescript
+import { createClient } from '@supabase/supabase-js';
+
+export const supabase = createClient(
+  'https://aodutymnszzydlkbrnbh.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvZHV0eW1uc3p6eWRsa2JybmJoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1MjAwMDMsImV4cCI6MjA1NDA5NjAwM30.ScyhFZYqphUvL_KCl4NEsaUl2bjxrhk4L4mMvoCGU4w',
+  {
+    auth: {
+      persistSession: true,
+      storageKey: 'sb-auth-token',
+      storage: localStorage,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+      flowType: 'pkce'
+    }
+  }
+);
+
+// Fonction utilitaire pour vérifier la connexion
+export async function checkSupabaseConnection() {
+  try {
+    const { error } = await supabase.from('votre_table').select('*').limit(1);
+    if (error) throw error;
+    console.log('Connexion Supabase réussie !');
+    return true;
+  } catch (error) {
+    console.error('Erreur de connexion Supabase:', error);
+    return false;
+  }
+} 
+
+
+### src/app/guards/auth.guard.ts
+<a id='src-app-guards-auth.guard.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { Router, CanActivateFn } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { from } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) {}
+
+  canActivate: CanActivateFn = () => {
+    return from(this.checkAuth());
+  }
+
+  private async checkAuth(): Promise<boolean> {
+    try {
+      // Attendre l'initialisation de l'auth
+      await this.authService.waitForInitialization();
+      
+      if (this.authService.isAuthenticated()) {
+        return true;
+      }
+
+      this.router.navigate(['/login']);
+      return false;
+    } catch (error) {
+      console.error('Erreur dans le guard:', error);
+      this.router.navigate(['/login']);
+      return false;
+    }
+  }
+} 
+
+
+### src/app/pages/auth/login/login.component.html
+<a id='src-app-pages-auth-login-login.component.html'></a>
+
+html
+<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+      Connexion à votre compte
+    </h2>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+            Adresse email
+          </label>
+          <div class="mt-1">
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="mt-1 text-sm text-red-600">
+            Email invalide
+          </div>
+        </div>
+
+        <!-- Mot de passe -->
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700">
+            Mot de passe
+          </label>
+          <div class="mt-1">
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="mt-1 text-sm text-red-600">
+            Le mot de passe doit contenir au moins 6 caractères
+          </div>
+        </div>
+
+        <!-- Message d'erreur -->
+        <div *ngIf="errorMessage" class="text-red-600 text-sm">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Bouton de connexion -->
+        <div>
+          <button
+            type="submit"
+            [disabled]="loading || !loginForm.valid"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+          >
+            <span *ngIf="loading" class="mr-2">
+              <!-- Spinner -->
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </span>
+            Se connecter
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">
+              Ou continuer avec
+            </span>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button
+            type="button"
+            (click)="loginWithGoogle()"
+            class="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <img src="assets/google-icon.svg" alt="Google" class="h-5 w-5 mr-2" />
+            Google
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/auth/login/login.component.ts
+<a id='src-app-pages-auth-login-login.component.ts'></a>
+
+typescript
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  template: `
+    <div class="min-h-screen flex items-center justify-center p-4">
+      <div class="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
+        <div class="text-center mb-8">
+          <img src="assets/marine-nationale.svg" alt="Marine Nationale" class="h-20 w-20 mx-auto mb-4">
+          <h2 class="text-2xl font-bold text-gray-800">Marine Nationale</h2>
+          <p class="text-gray-600 mt-2">Connectez-vous à votre compte</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input 
+              type="email" 
+              id="email"
+              formControlName="email"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+            >
+            <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" 
+               class="mt-1 text-sm text-red-600">
+              Email invalide
+            </p>
+          </div>
+
+          <!-- Mot de passe -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+            <input 
+              type="password" 
+              id="password"
+              formControlName="password"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            >
+            <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" 
+               class="mt-1 text-sm text-red-600">
+              Le mot de passe doit contenir au moins 6 caractères
+            </p>
+          </div>
+
+          <!-- Message d'erreur -->
+          <div *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Bouton de connexion -->
+          <button 
+            type="submit"
+            [disabled]="loginForm.invalid || loading"
+            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#001A70] hover:bg-[#002395] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#001A70] disabled:opacity-50"
+          >
+            <svg *ngIf="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            {{ loading ? 'Connexion...' : 'Se connecter' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  `,
+  styles: [`
+    :host {
+      display: block;
+      min-height: 100vh;
+    }
+  `]
+})
+export class LoginComponent {
+  loginForm: FormGroup;
+  loading = false;
+  errorMessage = '';
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  async onSubmit() {
+    if (this.loginForm.valid) {
+      this.loading = true;
+      this.errorMessage = '';
+      
+      try {
+        await this.authService.signIn(
+          this.loginForm.value.email,
+          this.loginForm.value.password
+        );
+        this.router.navigate(['/dashboard']);
+      } catch (error: any) {
+        this.errorMessage = error.message;
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+} 
+
+
+### src/app/pages/dashboard/dashboard.component.html
+<a id='src-app-pages-dashboard-dashboard.component.html'></a>
+
+html
+<div class="container mx-auto px-4 py-6">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Tableau de bord</h1>
+  </div>
+
+  <!-- Sélection du PMM si aucun n'est sélectionné -->
+  <div *ngIf="!selectedPMM && pmms.length > 0" class="bg-white rounded-lg shadow-lg p-6 mb-6">
+    <h2 class="text-lg font-semibold mb-4">Sélectionnez votre PMM</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <button *ngFor="let pmm of pmms" 
+              class="w-full text-left border rounded-lg p-4 hover:border-[#001A70] cursor-pointer transition-colors"
+              (click)="onPMMSelect(pmm.id)">
+        <h3 class="font-medium text-lg">{{ pmm.name }}</h3>
+        <p class="text-gray-600 text-sm mt-1">{{ pmm.description }}</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- Timeline des événements -->
+  <div *ngIf="selectedPMM" class="bg-white rounded-lg shadow-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-lg font-semibold">Événements à venir - {{ selectedPMM.name }}</h2>
+      <div class="flex items-center space-x-4 text-sm">
+        <div class="flex items-center">
+          <span class="w-3 h-3 rounded-full bg-green-500 mr-2"></span>
+          En cours
+        </div>
+        <div class="flex items-center">
+          <span class="w-3 h-3 rounded-full bg-blue-500 mr-2"></span>
+          À venir
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="flex justify-center py-8">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#001A70]"></div>
+    </div>
+
+    <div *ngIf="!loading && events.length === 0" class="text-center py-8 text-gray-500">
+      Aucun événement à venir
+    </div>
+
+    <div *ngIf="!loading && events.length > 0" class="relative">
+      <!-- Timeline verticale -->
+      <div class="absolute left-0 top-0 bottom-0 w-px bg-gray-200"></div>
+
+      <!-- Liste des événements -->
+      <div class="space-y-8 ml-8">
+        <div *ngFor="let event of events" class="relative">
+          <!-- Point sur la timeline -->
+          <div [ngClass]="{
+            'absolute -left-[31px] w-6 h-6 rounded-full border-4 border-white': true,
+            'bg-green-500': getEventStatus(event) === 'ongoing',
+            'bg-blue-500': getEventStatus(event) === 'upcoming'
+          }"></div>
+
+          <!-- Carte de l'événement -->
+          <div class="bg-white rounded-lg border p-4 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-medium text-lg">{{ event.title }}</h3>
+                <p class="text-gray-600 mt-1">{{ event.description }}</p>
+              </div>
+              <div class="text-sm text-gray-500">
+                <div>Début: {{ formatDate(event.start_date) }}</div>
+                <div>Fin: {{ formatDate(event.end_date) }}</div>
+              </div>
+            </div>
+
+            <!-- Types de réservation disponibles -->
+            <div *ngIf="event.reservation_types?.length" class="mt-4 pt-4 border-t">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">Types de réservation disponibles:</h4>
+              <div class="flex flex-wrap gap-2">
+                <button *ngFor="let type of event.reservation_types" 
+                        (click)="openReservationModal(event, type)"
+                        [ngClass]="{
+                          'px-2 py-1 rounded-full text-sm transition-all': true,
+                          'hover:shadow-md cursor-pointer': isReservationPossible(event, type),
+                          'opacity-50 cursor-not-allowed': !isReservationPossible(event, type),
+                          'bg-gray-100 text-gray-600 hover:bg-gray-200': !type.reservation_status,
+                          'bg-green-100 text-green-800 hover:bg-green-200': type.reservation_status === 'reserved',
+                          'bg-red-100 text-red-800 hover:bg-red-200': type.reservation_status === 'cancelled'
+                        }"
+                >
+                  {{ type.type_name }}
+                  <span class="ml-1 text-xs">
+                    <ng-container [ngSwitch]="type.reservation_status">
+                      <ng-container *ngSwitchCase="'reserved'">(Réservé)</ng-container>
+                      <ng-container *ngSwitchCase="'cancelled'">(Refusé)</ng-container>
+                      <ng-container *ngSwitchDefault>
+                        <ng-container *ngIf="isReservationPossible(event, type)">(Non réservé)</ng-container>
+                        <ng-container *ngIf="!isReservationPossible(event, type)">(Délai dépassé)</ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale de réservation -->
+  <div *ngIf="showReservationModal" 
+       class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-medium text-gray-900">
+          Réservation - {{ selectedType?.type_name }}
+        </h3>
+        <button 
+          (click)="closeReservationModal()"
+          class="text-gray-400 hover:text-gray-500"
+        >
+          <span class="sr-only">Fermer</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="mb-4">
+        <p class="text-sm text-gray-500">
+          Événement : {{ selectedEvent?.title }}
+        </p>
+        <p class="text-sm text-gray-500">
+          Date : {{ selectedEvent?.start_date | date:'dd/MM/yyyy' }}
+        </p>
+        <p class="text-sm text-gray-500" *ngIf="selectedType?.deadline_hours">
+          Délai de réponse : {{ selectedType?.deadline_hours }} heures
+        </p>
+      </div>
+
+      <ng-container *ngIf="selectedEvent && selectedType">
+        <ng-container *ngIf="isReservationPossible(selectedEvent, selectedType); else deadlinePassed">
+          <div class="flex justify-end space-x-3">
+            <button 
+              (click)="makeReservation('cancelled')"
+              class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+            >
+              Refuser
+            </button>
+            <button 
+              (click)="makeReservation('reserved')"
+              class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395]"
+            >
+              Accepter
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #deadlinePassed>
+          <div class="text-center p-4 bg-red-50 text-red-600 rounded-md">
+            Le délai de réponse est dépassé pour ce type de réservation.
+            <br>
+            (Délai : {{ selectedType.deadline_hours }} heures avant l'événement)
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/dashboard/dashboard.component.ts
+<a id='src-app-pages-dashboard-dashboard.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { DashboardService, ReservationTypeWithStatus } from './dashboard.service';
+import { Event } from '../event/event.model';
+import { PMM } from '../pmm/pmm.model';
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
+})
+export class DashboardComponent implements OnInit {
+  events: (Event & { reservation_types: ReservationTypeWithStatus[] })[] = [];
+  pmms: PMM[] = [];
+  selectedPMM: PMM | null = null;
+  loading = false;
+  showReservationModal = false;
+  selectedEvent: Event | null = null;
+  selectedType: ReservationTypeWithStatus | null = null;
+
+  constructor(private readonly dashboardService: DashboardService) {}
+
+  async ngOnInit() {
+    await this.loadUserPMM();
+  }
+
+  async loadUserPMM() {
+    try {
+      this.loading = true;
+      const userPMM = await this.dashboardService.getUserPMM();
+      
+      if (userPMM) {
+        this.selectedPMM = userPMM;
+        await this.loadEvents(userPMM.id);
+      } else {
+        await this.loadAvailablePMMs();
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement du PMM:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async loadAvailablePMMs() {
+    try {
+      this.pmms = await this.dashboardService.getPMMs();
+    } catch (error) {
+      console.error('Erreur lors du chargement des PMMs:', error);
+    }
+  }
+
+  async loadEvents(pmmId: string) {
+    try {
+      this.events = await this.dashboardService.getUpcomingEvents(pmmId);
+    } catch (error) {
+      console.error('Erreur lors du chargement des événements:', error);
+    }
+  }
+
+  async onPMMSelect(pmmId: string) {
+    try {
+      await this.dashboardService.setUserPMM(pmmId);
+      const selectedPMM = this.pmms.find(pmm => pmm.id === pmmId);
+      if (selectedPMM) {
+        this.selectedPMM = selectedPMM;
+        await this.loadEvents(pmmId);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sélection du PMM:', error);
+    }
+  }
+
+  getEventStatus(event: Event): 'upcoming' | 'ongoing' | 'past' {
+    const now = new Date();
+    const startDate = new Date(event.start_date);
+    const endDate = new Date(event.end_date);
+
+    if (now < startDate) return 'upcoming';
+    if (now > endDate) return 'past';
+    return 'ongoing';
+  }
+
+  formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  isReservationPossible(event: Event, type: ReservationTypeWithStatus): boolean {
+    if (!type.deadline_hours) return true;  // Si pas de délai, toujours possible
+
+    const now = new Date();
+    const eventDate = new Date(event.start_date);
+    const hoursRemaining = (eventDate.getTime() - now.getTime()) / (1000 * 60 * 60);
+    
+    return hoursRemaining >= type.deadline_hours;
+  }
+
+  openReservationModal(event: Event, type: ReservationTypeWithStatus) {
+    this.selectedEvent = event;
+    this.selectedType = type;
+    this.showReservationModal = true;
+  }
+
+  async makeReservation(status: 'reserved' | 'cancelled') {
+    if (!this.selectedEvent || !this.selectedType) return;
+
+    try {
+      await this.dashboardService.createReservation(
+        this.selectedEvent.id,
+        this.selectedType.id,
+        status
+      );
+      
+      // Recharger les événements pour mettre à jour les statuts
+      if (this.selectedPMM) {
+        await this.loadEvents(this.selectedPMM.id);
+      }
+      
+      this.closeReservationModal();
+    } catch (error) {
+      console.error('Erreur lors de la réservation:', error);
+    }
+  }
+
+  closeReservationModal() {
+    this.showReservationModal = false;
+    this.selectedEvent = null;
+    this.selectedType = null;
+  }
+} 
+
+
+### src/app/pages/dashboard/dashboard.module.ts
+<a id='src-app-pages-dashboard-dashboard.module.ts'></a>
+
+typescript
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './dashboard.component';
+
+const routes: Routes = [
+  { path: '', component: DashboardComponent }
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes)
+  ]
+})
+export class DashboardModule { } 
+
+
+### src/app/pages/dashboard/dashboard.service.ts
+<a id='src-app-pages-dashboard-dashboard.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+import { Event } from '../event/event.model';
+import { PMM } from '../pmm/pmm.model';
+import { ReservationType } from '../reservation-type/reservation-type.model';
+
+// Définir les types en dehors de la classe
+export type ReservationStatus = 'reserved' | 'cancelled' | null;
+
+export interface ReservationInfo {
+  id: string;
+  status: ReservationStatus;
+  reservation_type_id: string;
+}
+
+// Étendre l'interface ReservationType pour inclure le status
+export interface ReservationTypeWithStatus extends ReservationType {
+  reservation_status: ReservationStatus;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DashboardService {
+  async getUserPMM(): Promise<PMM | null> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select(`
+        pmm:pmm_id (
+          id,
+          name,
+          description,
+          created_at,
+          deleted_at
+        )
+      `)
+      .eq('user_id', user.id)
+      .single();
+
+    if (error) throw error;
+    if (!data?.pmm) return null;
+
+    const pmm = data.pmm as any;
+    return {
+      id: pmm.id,
+      name: pmm.name,
+      description: pmm.description,
+      created_at: pmm.created_at,
+      deleted_at: pmm.deleted_at
+    };
+  }
+
+  async getPMMs(): Promise<PMM[]> {
+    const { data, error } = await supabase
+      .from('pmm')
+      .select('id, name, description, created_at, deleted_at')
+      .is('deleted_at', null)
+      .order('name');
+
+    if (error) throw error;
+    
+    // Convertir explicitement en PMM[]
+    return data.map(pmm => ({
+      id: pmm.id,
+      name: pmm.name,
+      description: pmm.description,
+      created_at: pmm.created_at,
+      deleted_at: pmm.deleted_at
+    }));
+  }
+
+  async setUserPMM(pmmId: string): Promise<void> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Utilisateur non connecté');
+
+    const { data: existingRole } = await supabase
+      .from('user_roles')
+      .select('id')
+      .eq('user_id', user.id)
+      .single();
+
+    if (existingRole) {
+      const { error } = await supabase
+        .from('user_roles')
+        .update({ pmm_id: pmmId })
+        .eq('id', existingRole.id);
+
+      if (error) throw error;
+    } else {
+      const { error } = await supabase
+        .from('user_roles')
+        .insert([{
+          user_id: user.id,
+          pmm_id: pmmId,
+          role: 'user'
+        }]);
+
+      if (error) throw error;
+    }
+  }
+
+  async getUpcomingEvents(pmmId: string): Promise<(Event & { reservation_types: ReservationTypeWithStatus[] })[]> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Utilisateur non connecté');
+    
+    const today = new Date().toISOString();
+
+    // Récupérer les réservations de l'utilisateur
+    const { data: userReservations, error: reservationsError } = await supabase
+      .from('reservation')
+      .select('id, status, event_id, reservation_type_id')
+      .eq('user_id', user.id)
+      .is('deleted_at', null);
+
+    if (reservationsError) throw reservationsError;
+
+    // Créer un map des réservations par événement et type
+    const reservationsByEventAndType: Record<string, Record<string, ReservationInfo>> = {};
+    if (userReservations) {
+      userReservations.forEach((res: ReservationInfo & { event_id: string }) => {
+        if (!reservationsByEventAndType[res.event_id]) {
+          reservationsByEventAndType[res.event_id] = {};
+        }
+        reservationsByEventAndType[res.event_id][res.reservation_type_id] = res;
+      });
+    }
+
+    // Récupérer les événements avec leurs types de réservation
+    const { data, error } = await supabase
+      .from('event')
+      .select(`
+        *,
+        pmm:pmm_id (
+          id,
+          name
+        ),
+        event_reservation_type!inner (
+          id,
+          deleted_at,
+          reservation_type (
+            id,
+            type_name,
+            deadline_hours
+          )
+        )
+      `)
+      .eq('pmm_id', pmmId)
+      .gte('end_date', today)
+      .is('deleted_at', null)
+      .is('event_reservation_type.deleted_at', null)
+      .order('start_date');
+
+    if (error) throw error;
+
+    return data.map(event => ({
+      ...event,
+      reservation_types: event.event_reservation_type
+        .filter((ert: any) => ert.reservation_type && !ert.deleted_at)
+        .map((ert: any) => ({
+          ...ert.reservation_type,
+          reservation_status: reservationsByEventAndType[event.id]?.[ert.reservation_type.id]?.status ?? null
+        }))
+    }));
+  }
+
+  async createReservation(
+    eventId: string,
+    reservationTypeId: string,
+    status: 'reserved' | 'cancelled'
+  ): Promise<void> {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Utilisateur non connecté');
+
+    // Vérifier si une réservation existe déjà
+    const { data: existingReservation, error: fetchError } = await supabase
+      .from('reservation')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('event_id', eventId)
+      .eq('reservation_type_id', reservationTypeId)
+      .is('deleted_at', null)
+      .single();
+
+    if (fetchError && fetchError.code !== 'PGRST116') throw fetchError; // PGRST116 = not found
+
+    if (existingReservation) {
+      // Mettre à jour la réservation existante
+      const { error: updateError } = await supabase
+        .from('reservation')
+        .update({ status: status })
+        .eq('id', existingReservation.id);
+
+      if (updateError) throw updateError;
+    } else {
+      // Créer une nouvelle réservation
+      const { error: insertError } = await supabase
+        .from('reservation')
+        .insert([{
+          user_id: user.id,
+          event_id: eventId,
+          reservation_type_id: reservationTypeId,
+          status: status
+        }]);
+
+      if (insertError) throw insertError;
+    }
+  }
+} 
+
+
+### src/app/pages/event/event-reservation-type.service.ts
+<a id='src-app-pages-event-event-reservation-type.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EventReservationTypeService {
+  async getEventReservationTypes(eventId: string) {
+    const { data, error } = await supabase
+      .from('event_reservation_type')
+      .select(`
+        *,
+        reservation_type:reservation_type_id (
+          id,
+          type_name,
+          deadline_hours
+        )
+      `)
+      .eq('event_id', eventId)
+      .is('deleted_at', null);
+
+    if (error) throw error;
+    return data;
+  }
+
+  async addEventReservationType(eventId: string, reservationTypeId: string) {
+    const { error } = await supabase
+      .from('event_reservation_type')
+      .insert([{
+        event_id: eventId,
+        reservation_type_id: reservationTypeId
+      }]);
+
+    if (error) throw error;
+  }
+
+  async removeEventReservationType(eventId: string, reservationTypeId: string) {
+    const { error } = await supabase
+      .from('event_reservation_type')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('event_id', eventId)
+      .eq('reservation_type_id', reservationTypeId);
+
+    if (error) throw error;
+  }
+} 
+
+
+### src/app/pages/event/event.component.html
+<a id='src-app-pages-event-event.component.html'></a>
+
+html
+<div class="container mx-auto px-4 py-6">
+  <!-- En-tête -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Gestion des Événements</h1>
+    <button 
+      (click)="showAddModal = true"
+      class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] transition-colors"
+    >
+      Ajouter un événement
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+    <div class="flex gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rechercher</label>
+        <input 
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterEvents()"
+          placeholder="Titre, description, PMM..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md"
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des événements -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortEvents('title')">
+            <div class="flex items-center space-x-1">
+              <span>Titre</span>
+              <span class="text-gray-400">{{ getSortIcon('title') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortEvents('pmm.name')">
+            <div class="flex items-center space-x-1">
+              <span>PMM</span>
+              <span class="text-gray-400">{{ getSortIcon('pmm.name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortEvents('start_date')">
+            <div class="flex items-center space-x-1">
+              <span>Date début</span>
+              <span class="text-gray-400">{{ getSortIcon('start_date') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortEvents('end_date')">
+            <div class="flex items-center space-x-1">
+              <span>Date fin</span>
+              <span class="text-gray-400">{{ getSortIcon('end_date') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Description
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let event of paginatedEvents" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">{{ event.title }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ event.pmm?.name || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ event.start_date | date:'dd/MM/yyyy' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ event.end_date | date:'dd/MM/yyyy' }}</td>
+          <td class="px-6 py-4">
+            <div class="text-sm text-gray-900 line-clamp-2">{{ event.description || '-' }}</div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+            <button 
+              (click)="openReservationTypesModal(event)"
+              class="text-[#001A70] hover:text-[#002395]"
+            >
+              Types de réservation
+            </button>
+            <button 
+              (click)="editEvent(event)"
+              class="text-[#001A70] hover:text-[#002395]"
+            >
+              Modifier
+            </button>
+            <button 
+              (click)="deleteEvent(event)"
+              class="text-red-600 hover:text-red-800"
+            >
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button
+          (click)="onPageChange(pagination.currentPage - 1)"
+          [disabled]="pagination.currentPage === 1"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Précédent
+        </button>
+        <button
+          (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage === totalPages"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Suivant
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de
+            <span class="font-medium">{{ (pagination.currentPage - 1) * pagination.pageSize + 1 }}</span>
+            à
+            <span class="font-medium">
+              {{ getLastDisplayedItem() }}
+            </span>
+            sur
+            <span class="font-medium">{{ pagination.totalItems }}</span>
+            résultats
+          </p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <!-- Sélecteur de taille de page -->
+          <select
+            [ngModel]="pagination.pageSize"
+            (ngModelChange)="onPageSizeChange($event)"
+            class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }} par page
+            </option>
+          </select>
+
+          <!-- Navigation des pages -->
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <!-- Première page -->
+            <button
+              (click)="onPageChange(1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Première page</span>
+              ⟪
+            </button>
+
+            <!-- Page précédente -->
+            <button
+              (click)="onPageChange(pagination.currentPage - 1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Précédent</span>
+              ⟨
+            </button>
+
+            <!-- Numéros de page -->
+            <button
+              *ngFor="let page of pages"
+              (click)="onPageChange(page)"
+              [ngClass]="{
+                'bg-[#001A70] text-white hover:bg-[#002395]': page === pagination.currentPage,
+                'bg-white text-[#001A70] hover:bg-gray-100': page !== pagination.currentPage,
+                'border-[#001A70]': page === pagination.currentPage,
+                'border-gray-300': page !== pagination.currentPage
+              }"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-[#001A70]"
+            >
+              {{ page }}
+            </button>
+
+            <!-- Page suivante -->
+            <button
+              (click)="onPageChange(pagination.currentPage + 1)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Suivant</span>
+              ⟩
+            </button>
+
+            <!-- Dernière page -->
+            <button
+              (click)="onPageChange(totalPages)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Dernière page</span>
+              ⟫
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajout/Modification -->
+  <div *ngIf="showAddModal || editingEvent" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">{{ editingEvent ? 'Modifier' : 'Ajouter' }} un événement</h2>
+      
+      <form [formGroup]="eventForm" (ngSubmit)="saveEvent()" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">PMM</label>
+          <select 
+            formControlName="pmm_id"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Sélectionner un PMM</option>
+            <option *ngFor="let pmm of pmms" [value]="pmm.id">{{ pmm.name }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+          <input 
+            type="text"
+            formControlName="title"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea 
+            formControlName="description"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Date de début</label>
+          <input 
+            type="date"
+            formControlName="start_date"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Date de fin</label>
+          <input 
+            type="date"
+            formControlName="end_date"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+          <div *ngIf="eventForm.errors?.['dateRange']" class="mt-1 text-sm text-red-600">
+            La date de fin doit être postérieure à la date de début
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button 
+            type="button"
+            (click)="closeModal()"
+            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Annuler
+          </button>
+          <button 
+            type="submit"
+            [disabled]="eventForm.invalid || loading"
+            class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] disabled:opacity-50"
+          >
+            {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de gestion des types de réservation -->
+  <div *ngIf="showReservationTypesModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">Types de réservation</h2>
+        <p class="text-sm text-gray-600">{{ selectedEvent?.title }}</p>
+      </div>
+
+      <div class="space-y-4">
+        <div *ngFor="let type of availableReservationTypes" 
+             class="flex items-center justify-between p-3 border rounded-md hover:bg-gray-50"
+        >
+          <div>
+            <h3 class="font-medium">{{ type.type_name }}</h3>
+            <p class="text-sm text-gray-600">
+              Délai : {{ type.deadline_hours }} heures
+            </p>
+          </div>
+          <button 
+            (click)="toggleReservationType(type.id)"
+            [class]="isReservationTypeSelected(type.id) ? 
+              'px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700' : 
+              'px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395]'"
+          >
+            {{ isReservationTypeSelected(type.id) ? 'Retirer' : 'Ajouter' }}
+          </button>
+        </div>
+
+        <div *ngIf="availableReservationTypes.length === 0" 
+             class="text-center py-4 text-gray-500"
+        >
+          Aucun type de réservation disponible
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button 
+          type="button"
+          (click)="closeReservationTypesModal()"
+          class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+        >
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/event/event.component.ts
+<a id='src-app-pages-event-event.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Event } from './event.model';
+import { EventService } from './event.service';
+import { ReservationTypeService } from '../reservation-type/reservation-type.service';
+import { EventReservationTypeService } from './event-reservation-type.service';
+import { ReservationType } from '../reservation-type/reservation-type.model';
+
+type SortableColumns = keyof Event | 'pmm.name';
+
+interface SortConfig {
+  column: SortableColumns | null;
+  direction: 'asc' | 'desc';
+}
+
+interface PaginationConfig {
+  currentPage: number;
+  pageSize: number;
+  totalItems: number;
+}
+
+interface EventReservationType {
+  id: string;
+  event_id: string;
+  reservation_type_id: string;
+  created_at: string;
+  deleted_at?: string;
+  reservation_type?: ReservationType;
+}
+
+@Component({
+  selector: 'app-event',
+  templateUrl: './event.component.html',
+  styleUrls: ['./event.component.css']
+})
+export class EventComponent implements OnInit {
+  events: Event[] = [];
+  filteredEvents: Event[] = [];
+  paginatedEvents: Event[] = [];
+  pmms: any[] = [];
+  searchTerm = '';
+  showAddModal = false;
+  editingEvent: Event | null = null;
+  loading = false;
+  eventForm: FormGroup;
+  availableReservationTypes: ReservationType[] = [];
+  selectedEventReservationTypes: EventReservationType[] = [];
+  showReservationTypesModal = false;
+  selectedEvent: Event | null = null;
+
+  sort: SortConfig = {
+    column: null,
+    direction: 'asc'
+  };
+
+  pagination: PaginationConfig = {
+    currentPage: 1,
+    pageSize: 10,
+    totalItems: 0
+  };
+
+  pageSizeOptions = [5, 10, 25, 50];
+
+  constructor(
+    private fb: FormBuilder,
+    private eventService: EventService,
+    private reservationTypeService: ReservationTypeService,
+    private eventReservationTypeService: EventReservationTypeService
+  ) {
+    this.eventForm = this.fb.group({
+      pmm_id: ['', Validators.required],
+      title: ['', Validators.required],
+      description: [''],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required]
+    }, { 
+      validators: this.dateRangeValidator 
+    });
+  }
+
+  dateRangeValidator(group: FormGroup) {
+    const start = group.get('start_date')?.value;
+    const end = group.get('end_date')?.value;
+    if (start && end && new Date(start) > new Date(end)) {
+      return { dateRange: true };
+    }
+    return null;
+  }
+
+  async ngOnInit() {
+    await Promise.all([
+      this.loadEvents(),
+      this.loadPMMs()
+    ]);
+  }
+
+  async loadEvents() {
+    try {
+      this.events = await this.eventService.getEvents();
+      this.filterEvents();
+    } catch (error) {
+      console.error('Erreur lors du chargement des événements:', error);
+    }
+  }
+
+  async loadPMMs() {
+    try {
+      this.pmms = await this.eventService.getPMMs();
+    } catch (error) {
+      console.error('Erreur lors du chargement des PMMs:', error);
+    }
+  }
+
+  filterEvents() {
+    this.filteredEvents = this.events.filter(event => {
+      const searchFields = [
+        event.title,
+        event.description,
+        event.pmm?.name,
+        new Date(event.start_date).toLocaleDateString(),
+        new Date(event.end_date).toLocaleDateString()
+      ].map(field => field?.toLowerCase() || '');
+
+      return !this.searchTerm || 
+        searchFields.some(field => field.includes(this.searchTerm.toLowerCase()));
+    });
+
+    if (this.sort.column) {
+      this.sortEvents(this.sort.column);
+    }
+
+    this.pagination.totalItems = this.filteredEvents.length;
+    this.updatePage();
+  }
+
+  updatePage() {
+    const startIndex = (this.pagination.currentPage - 1) * this.pagination.pageSize;
+    const endIndex = startIndex + this.pagination.pageSize;
+    this.paginatedEvents = this.filteredEvents.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.pagination.currentPage = page;
+    this.updatePage();
+  }
+
+  onPageSizeChange(event: any) {
+    this.pagination.pageSize = Number(event);
+    this.pagination.currentPage = 1;
+    this.updatePage();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.pagination.totalItems / this.pagination.pageSize);
+  }
+
+  get pages(): number[] {
+    const totalPages = this.totalPages;
+    const currentPage = this.pagination.currentPage;
+    const pages: number[] = [];
+    
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
+  }
+
+  getLastDisplayedItem(): number {
+    return Math.min(
+      this.pagination.currentPage * this.pagination.pageSize,
+      this.pagination.totalItems
+    );
+  }
+
+  sortEvents(column: SortableColumns) {
+    if (this.sort.column === column) {
+      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sort.column = column;
+      this.sort.direction = 'asc';
+    }
+
+    this.filteredEvents.sort((a, b) => {
+      let valueA: any;
+      let valueB: any;
+
+      if (column === 'pmm.name') {
+        valueA = a.pmm?.name || '';
+        valueB = b.pmm?.name || '';
+      } else {
+        valueA = a[column as keyof Event] || '';
+        valueB = b[column as keyof Event] || '';
+      }
+      
+      if (valueA < valueB) return this.sort.direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sort.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.updatePage();
+  }
+
+  getSortIcon(column: SortableColumns): string {
+    if (this.sort.column !== column) return '↕️';
+    return this.sort.direction === 'asc' ? '↑' : '↓';
+  }
+
+  editEvent(event: Event) {
+    this.editingEvent = event;
+    this.eventForm.patchValue({
+      pmm_id: event.pmm_id,
+      title: event.title,
+      description: event.description,
+      start_date: event.start_date.split('T')[0],
+      end_date: event.end_date.split('T')[0]
+    });
+  }
+
+  async deleteEvent(event: Event) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cet événement ?')) return;
+
+    try {
+      await this.eventService.deleteEvent(event.id);
+      await this.loadEvents();
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  }
+
+  async saveEvent() {
+    if (this.eventForm.invalid) return;
+
+    this.loading = true;
+    try {
+      const eventData = {
+        ...this.eventForm.value,
+        start_date: new Date(this.eventForm.value.start_date).toISOString(),
+        end_date: new Date(this.eventForm.value.end_date).toISOString()
+      };
+
+      if (this.editingEvent) {
+        await this.eventService.updateEvent(this.editingEvent.id, eventData);
+      } else {
+        await this.eventService.createEvent(eventData);
+      }
+
+      await this.loadEvents();
+      this.closeModal();
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  closeModal() {
+    this.showAddModal = false;
+    this.editingEvent = null;
+    this.eventForm.reset();
+  }
+
+  async loadReservationTypes() {
+    try {
+      this.availableReservationTypes = await this.reservationTypeService.getReservationTypes();
+    } catch (error) {
+      console.error('Erreur lors du chargement des types de réservation:', error);
+    }
+  }
+
+  async loadEventReservationTypes(eventId: string) {
+    try {
+      this.selectedEventReservationTypes = 
+        await this.eventReservationTypeService.getEventReservationTypes(eventId);
+    } catch (error) {
+      console.error('Erreur lors du chargement des types de réservation de l\'événement:', error);
+    }
+  }
+
+  async openReservationTypesModal(event: Event) {
+    this.selectedEvent = event;
+    await this.loadReservationTypes();
+    await this.loadEventReservationTypes(event.id);
+    this.showReservationTypesModal = true;
+  }
+
+  isReservationTypeSelected(typeId: string): boolean {
+    return this.selectedEventReservationTypes.some(
+      ert => ert.reservation_type_id === typeId
+    );
+  }
+
+  async toggleReservationType(typeId: string) {
+    if (!this.selectedEvent) return;
+
+    try {
+      if (this.isReservationTypeSelected(typeId)) {
+        await this.eventReservationTypeService.removeEventReservationType(
+          this.selectedEvent.id,
+          typeId
+        );
+      } else {
+        await this.eventReservationTypeService.addEventReservationType(
+          this.selectedEvent.id,
+          typeId
+        );
+      }
+      await this.loadEventReservationTypes(this.selectedEvent.id);
+    } catch (error) {
+      console.error('Erreur lors de la modification des types de réservation:', error);
+    }
+  }
+
+  closeReservationTypesModal() {
+    this.showReservationTypesModal = false;
+    this.selectedEvent = null;
+    this.selectedEventReservationTypes = [];
+  }
+} 
+
+
+### src/app/pages/event/event.model.ts
+<a id='src-app-pages-event-event.model.ts'></a>
+
+typescript
+import { ReservationType } from '../reservation-type/reservation-type.model';
+
+export interface Event {
+  id: string;
+  pmm_id: string;
+  title: string;
+  start_date: string;
+  end_date: string;
+  description?: string;
+  created_at: string;
+  deleted_at?: string;
+  pmm?: {
+    id: string;
+    name: string;
+  };
+  reservation_types?: ReservationType[];
+} 
+
+
+### src/app/pages/event/event.service.ts
+<a id='src-app-pages-event-event.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+import { Event } from './event.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EventService {
+  async getEvents(): Promise<Event[]> {
+    const { data, error } = await supabase
+      .from('event')
+      .select(`
+        *,
+        pmm:pmm_id (
+          id,
+          name
+        )
+      `)
+      .is('deleted_at', null)
+      .order('start_date', { ascending: true });
+
+    if (error) throw error;
+    return data;
+  }
+
+  async createEvent(eventData: Partial<Event>): Promise<Event> {
+    const { data, error } = await supabase
+      .from('event')
+      .insert([eventData])
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async updateEvent(id: string, eventData: Partial<Event>): Promise<Event> {
+    const { data, error } = await supabase
+      .from('event')
+      .update(eventData)
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async deleteEvent(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('event')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+
+  async getPMMs() {
+    const { data, error } = await supabase
+      .from('pmm')
+      .select('id, name')
+      .is('deleted_at', null)
+      .order('name');
+
+    if (error) throw error;
+    return data;
+  }
+} 
+
+
+### src/app/pages/pmm/pmm.component.html
+<a id='src-app-pages-pmm-pmm.component.html'></a>
+
+html
+<div class="container mx-auto px-4 py-6">
+  <!-- En-tête -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Gestion des PMM</h1>
+    <button 
+      (click)="showAddModal = true"
+      class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] transition-colors"
+    >
+      Ajouter un PMM
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+    <div class="flex gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rechercher</label>
+        <input 
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterPMMs()"
+          placeholder="Nom, description, adresse..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md"
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des PMM -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortPMMs('name')">
+            <div class="flex items-center space-x-1">
+              <span>Nom</span>
+              <span class="text-gray-400">{{ getSortIcon('name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortPMMs('description')">
+            <div class="flex items-center space-x-1">
+              <span>Description</span>
+              <span class="text-gray-400">{{ getSortIcon('description') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortPMMs('address')">
+            <div class="flex items-center space-x-1">
+              <span>Adresse</span>
+              <span class="text-gray-400">{{ getSortIcon('address') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortPMMs('phone')">
+            <div class="flex items-center space-x-1">
+              <span>Téléphone</span>
+              <span class="text-gray-400">{{ getSortIcon('phone') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortPMMs('gps')">
+            <div class="flex items-center space-x-1">
+              <span>GPS</span>
+              <span class="text-gray-400">{{ getSortIcon('gps') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let pmm of paginatedPMMs" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">{{ pmm.name }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ pmm.description || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ pmm.address || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ pmm.phone || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ pmm.gps || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+            <button 
+              (click)="editPMM(pmm)"
+              class="text-[#001A70] hover:text-[#002395]"
+            >
+              Modifier
+            </button>
+            <button 
+              (click)="deletePMM(pmm)"
+              class="text-red-600 hover:text-red-800"
+            >
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button
+          (click)="onPageChange(pagination.currentPage - 1)"
+          [disabled]="pagination.currentPage === 1"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Précédent
+        </button>
+        <button
+          (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage === totalPages"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Suivant
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de
+            <span class="font-medium">{{ (pagination.currentPage - 1) * pagination.pageSize + 1 }}</span>
+            à
+            <span class="font-medium">
+              {{ getLastDisplayedItem() }}
+            </span>
+            sur
+            <span class="font-medium">{{ pagination.totalItems }}</span>
+            résultats
+          </p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <!-- Sélecteur de taille de page -->
+          <select
+            [ngModel]="pagination.pageSize"
+            (ngModelChange)="onPageSizeChange($event)"
+            class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }} par page
+            </option>
+          </select>
+
+          <!-- Navigation des pages -->
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <!-- Première page -->
+            <button
+              (click)="onPageChange(1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Première page</span>
+              ⟪
+            </button>
+
+            <!-- Page précédente -->
+            <button
+              (click)="onPageChange(pagination.currentPage - 1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Précédent</span>
+              ⟨
+            </button>
+
+            <!-- Numéros de page -->
+            <button
+              *ngFor="let page of pages"
+              (click)="onPageChange(page)"
+              [ngClass]="{
+                'bg-[#001A70] text-white hover:bg-[#002395]': page === pagination.currentPage,
+                'bg-white text-[#001A70] hover:bg-gray-100': page !== pagination.currentPage,
+                'border-[#001A70]': page === pagination.currentPage,
+                'border-gray-300': page !== pagination.currentPage
+              }"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-[#001A70]"
+            >
+              {{ page }}
+            </button>
+
+            <!-- Page suivante -->
+            <button
+              (click)="onPageChange(pagination.currentPage + 1)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Suivant</span>
+              ⟩
+            </button>
+
+            <!-- Dernière page -->
+            <button
+              (click)="onPageChange(totalPages)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Dernière page</span>
+              ⟫
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajout/Modification -->
+  <div *ngIf="showAddModal || editingPMM" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">{{ editingPMM ? 'Modifier' : 'Ajouter' }} un PMM</h2>
+      
+      <form [formGroup]="pmmForm" (ngSubmit)="savePMM()" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+          <input 
+            type="text"
+            formControlName="name"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+          <textarea 
+            formControlName="description"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          ></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+          <input 
+            type="text"
+            formControlName="address"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+          <input 
+            type="tel"
+            formControlName="phone"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">GPS</label>
+          <input 
+            type="text"
+            formControlName="gps"
+            placeholder="latitude,longitude"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button 
+            type="button"
+            (click)="closeModal()"
+            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Annuler
+          </button>
+          <button 
+            type="submit"
+            [disabled]="pmmForm.invalid || loading"
+            class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] disabled:opacity-50"
+          >
+            {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/pmm/pmm.component.ts
+<a id='src-app-pages-pmm-pmm.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PMM } from './pmm.model';
+import { PMMService } from './pmm.service';
+
+type SortableColumns = keyof PMM;
+
+interface SortConfig {
+  column: SortableColumns | null;
+  direction: 'asc' | 'desc';
+}
+
+interface PaginationConfig {
+  currentPage: number;
+  pageSize: number;
+  totalItems: number;
+}
+
+@Component({
+  selector: 'app-pmm',
+  templateUrl: './pmm.component.html',
+  styleUrls: ['./pmm.component.css']
+})
+export class PMMComponent implements OnInit {
+  pmms: PMM[] = [];
+  filteredPMMs: PMM[] = [];
+  paginatedPMMs: PMM[] = [];
+  searchTerm = '';
+  showAddModal = false;
+  editingPMM: PMM | null = null;
+  loading = false;
+  pmmForm: FormGroup;
+
+  sort: SortConfig = {
+    column: null,
+    direction: 'asc'
+  };
+
+  pagination: PaginationConfig = {
+    currentPage: 1,
+    pageSize: 10,
+    totalItems: 0
+  };
+
+  pageSizeOptions = [5, 10, 25, 50];
+
+  constructor(
+    private fb: FormBuilder,
+    private pmmService: PMMService
+  ) {
+    this.pmmForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      address: [''],
+      phone: [''],
+      gps: ['']
+    });
+  }
+
+  async ngOnInit() {
+    await this.loadPMMs();
+  }
+
+  async loadPMMs() {
+    try {
+      this.pmms = await this.pmmService.getPMMs();
+      this.filterPMMs();
+    } catch (error) {
+      console.error('Erreur lors du chargement des PMMs:', error);
+    }
+  }
+
+  filterPMMs() {
+    this.filteredPMMs = this.pmms.filter(pmm => {
+      const searchFields = [
+        pmm.name,
+        pmm.description,
+        pmm.address,
+        pmm.phone,
+        pmm.gps
+      ].map(field => field?.toLowerCase() || '');
+
+      return !this.searchTerm || 
+        searchFields.some(field => field.includes(this.searchTerm.toLowerCase()));
+    });
+
+    if (this.sort.column) {
+      this.sortPMMs(this.sort.column);
+    }
+
+    this.pagination.totalItems = this.filteredPMMs.length;
+    this.updatePage();
+  }
+
+  updatePage() {
+    const startIndex = (this.pagination.currentPage - 1) * this.pagination.pageSize;
+    const endIndex = startIndex + this.pagination.pageSize;
+    this.paginatedPMMs = this.filteredPMMs.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.pagination.currentPage = page;
+    this.updatePage();
+  }
+
+  onPageSizeChange(size: number) {
+    this.pagination.pageSize = size;
+    this.pagination.currentPage = 1;
+    this.updatePage();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.pagination.totalItems / this.pagination.pageSize);
+  }
+
+  get pages(): number[] {
+    const totalPages = this.totalPages;
+    const currentPage = this.pagination.currentPage;
+    const pages: number[] = [];
+    
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
+  }
+
+  getLastDisplayedItem(): number {
+    return Math.min(
+      this.pagination.currentPage * this.pagination.pageSize,
+      this.pagination.totalItems
+    );
+  }
+
+  sortPMMs(column: SortableColumns) {
+    if (this.sort.column === column) {
+      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sort.column = column;
+      this.sort.direction = 'asc';
+    }
+
+    this.filteredPMMs.sort((a, b) => {
+      const valueA = a[column] || '';
+      const valueB = b[column] || '';
+      
+      if (valueA < valueB) return this.sort.direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sort.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.updatePage();
+  }
+
+  getSortIcon(column: SortableColumns): string {
+    if (this.sort.column !== column) return '↕️';
+    return this.sort.direction === 'asc' ? '↑' : '↓';
+  }
+
+  editPMM(pmm: PMM) {
+    this.editingPMM = pmm;
+    this.pmmForm.patchValue({
+      name: pmm.name,
+      description: pmm.description,
+      address: pmm.address,
+      phone: pmm.phone,
+      gps: pmm.gps
+    });
+  }
+
+  async deletePMM(pmm: PMM) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce PMM ?')) return;
+
+    try {
+      await this.pmmService.deletePMM(pmm.id);
+      await this.loadPMMs();
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  }
+
+  async savePMM() {
+    if (this.pmmForm.invalid) return;
+
+    this.loading = true;
+    try {
+      if (this.editingPMM) {
+        await this.pmmService.updatePMM(this.editingPMM.id, this.pmmForm.value);
+      } else {
+        await this.pmmService.createPMM(this.pmmForm.value);
+      }
+
+      await this.loadPMMs();
+      this.closeModal();
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  closeModal() {
+    this.showAddModal = false;
+    this.editingPMM = null;
+    this.pmmForm.reset();
+  }
+} 
+
+
+### src/app/pages/pmm/pmm.model.ts
+<a id='src-app-pages-pmm-pmm.model.ts'></a>
+
+typescript
+export interface PMM {
+  id: string;
+  name: string;
+  description?: string;
+  address?: string;
+  phone?: string;
+  gps?: string;
+  created_at: string;
+  deleted_at?: string;
+} 
+
+
+### src/app/pages/pmm/pmm.service.ts
+<a id='src-app-pages-pmm-pmm.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+import { PMM } from './pmm.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PMMService {
+  async getPMMs(): Promise<PMM[]> {
+    const { data, error } = await supabase
+      .from('pmm')
+      .select('*')
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  }
+
+  async createPMM(pmmData: Partial<PMM>): Promise<PMM> {
+    const { data, error } = await supabase
+      .from('pmm')
+      .insert([pmmData])
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async updatePMM(id: string, pmmData: Partial<PMM>): Promise<PMM> {
+    const { data, error } = await supabase
+      .from('pmm')
+      .update(pmmData)
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async deletePMM(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('pmm')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+} 
+
+
+### src/app/pages/reservation-type/reservation-type.component.html
+<a id='src-app-pages-reservation-type-reservation-type.component.html'></a>
+
+html
+<div class="container mx-auto px-4 py-6">
+  <!-- En-tête -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Types de Réservation</h1>
+    <button 
+      (click)="showAddModal = true"
+      class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] transition-colors"
+    >
+      Ajouter un type
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+    <div class="flex gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rechercher</label>
+        <input 
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterTypes()"
+          placeholder="Nom du type, PMM..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md"
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des types -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortTypes('type_name')">
+            <div class="flex items-center space-x-1">
+              <span>Type</span>
+              <span class="text-gray-400">{{ getSortIcon('type_name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortTypes('pmm.name')">
+            <div class="flex items-center space-x-1">
+              <span>PMM</span>
+              <span class="text-gray-400">{{ getSortIcon('pmm.name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortTypes('deadline_hours')">
+            <div class="flex items-center space-x-1">
+              <span>Délai (heures)</span>
+              <span class="text-gray-400">{{ getSortIcon('deadline_hours') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let type of paginatedTypes" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">{{ type.type_name }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ type.pmm?.name || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ type.deadline_hours }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+            <button 
+              (click)="editType(type)"
+              class="text-[#001A70] hover:text-[#002395]"
+            >
+              Modifier
+            </button>
+            <button 
+              (click)="deleteType(type)"
+              class="text-red-600 hover:text-red-800"
+            >
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm text-gray-700">
+          Affichage de
+          <span class="font-medium">{{ (pagination.currentPage - 1) * pagination.pageSize + 1 }}</span>
+          à
+          <span class="font-medium">{{ getLastDisplayedItem() }}</span>
+          sur
+          <span class="font-medium">{{ pagination.totalItems }}</span>
+          résultats
+        </p>
+      </div>
+      <div>
+        <div class="flex items-center space-x-4">
+          <select
+            [ngModel]="pagination.pageSize"
+            (ngModelChange)="onPageSizeChange($event)"
+            class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }} par page
+            </option>
+          </select>
+
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <!-- Première page -->
+            <button
+              (click)="onPageChange(1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Première page</span>
+              ⟪
+            </button>
+
+            <!-- Page précédente -->
+            <button
+              (click)="onPageChange(pagination.currentPage - 1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Précédent</span>
+              ⟨
+            </button>
+
+            <!-- Numéros de page -->
+            <button
+              *ngFor="let page of pages"
+              (click)="onPageChange(page)"
+              [ngClass]="{
+                'bg-[#001A70] text-white hover:bg-[#002395]': page === pagination.currentPage,
+                'bg-white text-[#001A70] hover:bg-gray-100': page !== pagination.currentPage,
+                'border-[#001A70]': page === pagination.currentPage,
+                'border-gray-300': page !== pagination.currentPage
+              }"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-[#001A70]"
+            >
+              {{ page }}
+            </button>
+
+            <!-- Page suivante -->
+            <button
+              (click)="onPageChange(pagination.currentPage + 1)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Suivant</span>
+              ⟩
+            </button>
+
+            <!-- Dernière page -->
+            <button
+              (click)="onPageChange(totalPages)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Dernière page</span>
+              ⟫
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajout/Modification -->
+  <div *ngIf="showAddModal || editingType" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">
+        {{ editingType ? 'Modifier' : 'Ajouter' }} un type de réservation
+      </h2>
+      
+      <form [formGroup]="typeForm" (ngSubmit)="saveType()" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">PMM</label>
+          <select 
+            formControlName="pmm_id"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Sélectionner un PMM</option>
+            <option *ngFor="let pmm of pmms" [value]="pmm.id">{{ pmm.name }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nom du type</label>
+          <input 
+            type="text"
+            formControlName="type_name"
+            placeholder="Ex: repas, transport..."
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            Délai de réservation (heures)
+          </label>
+          <input 
+            type="number"
+            formControlName="deadline_hours"
+            min="0"
+            max="168"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+          <p class="mt-1 text-sm text-gray-500">
+            Maximum 168 heures (7 jours)
+          </p>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button 
+            type="button"
+            (click)="closeModal()"
+            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Annuler
+          </button>
+          <button 
+            type="submit"
+            [disabled]="typeForm.invalid || loading"
+            class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] disabled:opacity-50"
+          >
+            {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/reservation-type/reservation-type.component.ts
+<a id='src-app-pages-reservation-type-reservation-type.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReservationType } from './reservation-type.model';
+import { ReservationTypeService } from './reservation-type.service';
+
+type SortableColumns = keyof ReservationType | 'pmm.name';
+
+interface SortConfig {
+  column: SortableColumns | null;
+  direction: 'asc' | 'desc';
+}
+
+interface PaginationConfig {
+  currentPage: number;
+  pageSize: number;
+  totalItems: number;
+}
+
+@Component({
+  selector: 'app-reservation-type',
+  templateUrl: './reservation-type.component.html',
+  styleUrls: ['./reservation-type.component.css']
+})
+export class ReservationTypeComponent implements OnInit {
+  types: ReservationType[] = [];
+  filteredTypes: ReservationType[] = [];
+  paginatedTypes: ReservationType[] = [];
+  pmms: any[] = [];
+  searchTerm = '';
+  showAddModal = false;
+  editingType: ReservationType | null = null;
+  loading = false;
+  typeForm: FormGroup;
+
+  sort: SortConfig = {
+    column: null,
+    direction: 'asc'
+  };
+
+  pagination: PaginationConfig = {
+    currentPage: 1,
+    pageSize: 10,
+    totalItems: 0
+  };
+
+  pageSizeOptions = [5, 10, 25, 50];
+
+  constructor(
+    private fb: FormBuilder,
+    private reservationTypeService: ReservationTypeService
+  ) {
+    this.typeForm = this.fb.group({
+      pmm_id: ['', Validators.required],
+      type_name: ['', Validators.required],
+      deadline_hours: ['', [Validators.required, Validators.min(0), Validators.max(168)]]
+    });
+  }
+
+  async ngOnInit() {
+    await Promise.all([
+      this.loadTypes(),
+      this.loadPMMs()
+    ]);
+  }
+
+  async loadTypes() {
+    try {
+      this.types = await this.reservationTypeService.getReservationTypes();
+      this.filterTypes();
+    } catch (error) {
+      console.error('Erreur lors du chargement des types de réservation:', error);
+    }
+  }
+
+  async loadPMMs() {
+    try {
+      this.pmms = await this.reservationTypeService.getPMMs();
+    } catch (error) {
+      console.error('Erreur lors du chargement des PMMs:', error);
+    }
+  }
+
+  filterTypes() {
+    this.filteredTypes = this.types.filter(type => {
+      const searchFields = [
+        type.type_name,
+        type.pmm?.name,
+        type.deadline_hours.toString()
+      ].map(field => field?.toLowerCase() || '');
+
+      return !this.searchTerm || 
+        searchFields.some(field => field.includes(this.searchTerm.toLowerCase()));
+    });
+
+    this.pagination.totalItems = this.filteredTypes.length;
+    this.updatePage();
+  }
+
+  updatePage() {
+    const startIndex = (this.pagination.currentPage - 1) * this.pagination.pageSize;
+    const endIndex = startIndex + this.pagination.pageSize;
+    this.paginatedTypes = this.filteredTypes.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.pagination.currentPage = page;
+    this.updatePage();
+  }
+
+  onPageSizeChange(event: any) {
+    this.pagination.pageSize = Number(event);
+    this.pagination.currentPage = 1;
+    this.updatePage();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.pagination.totalItems / this.pagination.pageSize);
+  }
+
+  get pages(): number[] {
+    const totalPages = this.totalPages;
+    const currentPage = this.pagination.currentPage;
+    const pages: number[] = [];
+    
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
+  }
+
+  getLastDisplayedItem(): number {
+    return Math.min(
+      this.pagination.currentPage * this.pagination.pageSize,
+      this.pagination.totalItems
+    );
+  }
+
+  sortTypes(column: SortableColumns) {
+    if (this.sort.column === column) {
+      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sort.column = column;
+      this.sort.direction = 'asc';
+    }
+
+    this.filteredTypes.sort((a, b) => {
+      let valueA: any;
+      let valueB: any;
+
+      if (column === 'pmm.name') {
+        valueA = a.pmm?.name || '';
+        valueB = b.pmm?.name || '';
+      } else {
+        valueA = a[column as keyof ReservationType] || '';
+        valueB = b[column as keyof ReservationType] || '';
+      }
+      
+      if (valueA < valueB) return this.sort.direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sort.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.updatePage();
+  }
+
+  getSortIcon(column: SortableColumns): string {
+    if (this.sort.column !== column) return '↕️';
+    return this.sort.direction === 'asc' ? '↑' : '↓';
+  }
+
+  editType(type: ReservationType) {
+    this.editingType = type;
+    this.typeForm.patchValue({
+      pmm_id: type.pmm_id,
+      type_name: type.type_name,
+      deadline_hours: type.deadline_hours
+    });
+  }
+
+  async deleteType(type: ReservationType) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce type de réservation ?')) return;
+
+    try {
+      await this.reservationTypeService.deleteReservationType(type.id);
+      await this.loadTypes();
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  }
+
+  async saveType() {
+    if (this.typeForm.invalid) return;
+
+    this.loading = true;
+    try {
+      if (this.editingType) {
+        await this.reservationTypeService.updateReservationType(
+          this.editingType.id,
+          this.typeForm.value
+        );
+      } else {
+        await this.reservationTypeService.createReservationType(this.typeForm.value);
+      }
+
+      await this.loadTypes();
+      this.closeModal();
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  closeModal() {
+    this.showAddModal = false;
+    this.editingType = null;
+    this.typeForm.reset();
+  }
+} 
+
+
+### src/app/pages/reservation-type/reservation-type.model.ts
+<a id='src-app-pages-reservation-type-reservation-type.model.ts'></a>
+
+typescript
+export interface ReservationType {
+  id: string;
+  pmm_id: string;
+  type_name: string;
+  deadline_hours: number;
+  created_at: string;
+  deleted_at?: string;
+  pmm?: {
+    id: string;
+    name: string;
+  };
+} 
+
+
+### src/app/pages/reservation-type/reservation-type.service.ts
+<a id='src-app-pages-reservation-type-reservation-type.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+import { ReservationType } from './reservation-type.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ReservationTypeService {
+  async getReservationTypes(): Promise<ReservationType[]> {
+    const { data, error } = await supabase
+      .from('reservation_type')
+      .select(`
+        *,
+        pmm:pmm_id (
+          id,
+          name
+        )
+      `)
+      .is('deleted_at', null)
+      .order('type_name', { ascending: true });
+
+    if (error) throw error;
+    return data;
+  }
+
+  async createReservationType(typeData: Partial<ReservationType>): Promise<ReservationType> {
+    const { data, error } = await supabase
+      .from('reservation_type')
+      .insert([typeData])
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async updateReservationType(id: string, typeData: Partial<ReservationType>): Promise<ReservationType> {
+    const { data, error } = await supabase
+      .from('reservation_type')
+      .update(typeData)
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async deleteReservationType(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('reservation_type')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+
+  async getPMMs() {
+    const { data, error } = await supabase
+      .from('pmm')
+      .select('id, name')
+      .is('deleted_at', null)
+      .order('name');
+
+    if (error) throw error;
+    return data;
+  }
+} 
+
+
+### src/app/pages/users/user.model.ts
+<a id='src-app-pages-users-user.model.ts'></a>
+
+typescript
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  grade?: string;
+  role?: string;
+  created_at: string;
+  deleted_at?: string;
+  pmm_id?: string;
+  pmm?: PMM;
+}
+
+export interface PMM {
+  id: string;
+  name: string;
+  description?: string;
+  address?: string;
+  phone?: string;
+  gps?: string;
+  created_at: string;
+  deleted_at?: string;
+} 
+
+
+### src/app/pages/users/users.component.html
+<a id='src-app-pages-users-users.component.html'></a>
+
+html
+<div class="container mx-auto px-4 py-6">
+  <!-- En-tête -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Gestion des Utilisateurs</h1>
+    <button 
+      (click)="showAddModal = true"
+      class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] transition-colors"
+    >
+      Ajouter un utilisateur
+    </button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+    <div class="flex gap-4 items-end">
+      <div class="flex-1">
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rechercher</label>
+        <input 
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterUsers()"
+          placeholder="Nom, email, grade..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md"
+        >
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
+        <select 
+          [(ngModel)]="gradeFilter"
+          (ngModelChange)="filterUsers()"
+          class="w-48 px-3 py-2 border border-gray-300 rounded-md"
+        >
+          <option value="">Tous</option>
+          <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
+        <select 
+          [(ngModel)]="roleFilter"
+          (ngModelChange)="filterUsers()"
+          class="w-48 px-3 py-2 border border-gray-300 rounded-md"
+        >
+          <option value="">Tous</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liste des utilisateurs -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('name')">
+            <div class="flex items-center space-x-1">
+              <span>Nom</span>
+              <span class="text-gray-400">{{ getSortIcon('name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('email')">
+            <div class="flex items-center space-x-1">
+              <span>Email</span>
+              <span class="text-gray-400">{{ getSortIcon('email') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('grade')">
+            <div class="flex items-center space-x-1">
+              <span>Grade</span>
+              <span class="text-gray-400">{{ getSortIcon('grade') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('role')">
+            <div class="flex items-center space-x-1">
+              <span>Rôle</span>
+              <span class="text-gray-400">{{ getSortIcon('role') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('created_at')">
+            <div class="flex items-center space-x-1">
+              <span>Date création</span>
+              <span class="text-gray-400">{{ getSortIcon('created_at') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              (click)="sortUsers('pmm.name')">
+            <div class="flex items-center space-x-1">
+              <span>PMM</span>
+              <span class="text-gray-400">{{ getSortIcon('pmm.name') }}</span>
+            </div>
+          </th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr *ngFor="let user of paginatedUsers" class="hover:bg-gray-50">
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.email }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.grade || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.role || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.created_at | date:'dd/MM/yyyy' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ user.pmm?.name || '-' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+            <button 
+              (click)="editUser(user)"
+              class="text-[#001A70] hover:text-[#002395]"
+            >
+              Modifier
+            </button>
+            <button 
+              (click)="deleteUser(user)"
+              class="text-red-600 hover:text-red-800"
+            >
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button
+          (click)="onPageChange(pagination.currentPage - 1)"
+          [disabled]="pagination.currentPage === 1"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Précédent
+        </button>
+        <button
+          (click)="onPageChange(pagination.currentPage + 1)"
+          [disabled]="pagination.currentPage === totalPages"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+        >
+          Suivant
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de
+            <span class="font-medium">{{ (pagination.currentPage - 1) * pagination.pageSize + 1 }}</span>
+            à
+            <span class="font-medium">
+              {{ getLastDisplayedItem() }}
+            </span>
+            sur
+            <span class="font-medium">{{ pagination.totalItems }}</span>
+            résultats
+          </p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <!-- Sélecteur de taille de page -->
+          <select
+            [ngModel]="pagination.pageSize"
+            (ngModelChange)="onPageSizeChange($event)"
+            class="px-3 py-2 border border-gray-300 rounded-md text-sm"
+          >
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+              {{ size }} par page
+            </option>
+          </select>
+
+          <!-- Navigation des pages -->
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <!-- Première page -->
+            <button
+              (click)="onPageChange(1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Première page</span>
+              ⟪
+            </button>
+
+            <!-- Page précédente -->
+            <button
+              (click)="onPageChange(pagination.currentPage - 1)"
+              [disabled]="pagination.currentPage === 1"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Précédent</span>
+              ⟨
+            </button>
+
+            <!-- Numéros de page -->
+            <button
+              *ngFor="let page of pages"
+              (click)="onPageChange(page)"
+              [ngClass]="{
+                'bg-[#001A70] text-white hover:bg-[#002395]': page === pagination.currentPage,
+                'bg-white text-[#001A70] hover:bg-gray-100': page !== pagination.currentPage,
+                'border-[#001A70]': page === pagination.currentPage,
+                'border-gray-300': page !== pagination.currentPage
+              }"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium focus:z-10 focus:outline-none focus:ring-1 focus:ring-[#001A70]"
+            >
+              {{ page }}
+            </button>
+
+            <!-- Page suivante -->
+            <button
+              (click)="onPageChange(pagination.currentPage + 1)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Suivant</span>
+              ⟩
+            </button>
+
+            <!-- Dernière page -->
+            <button
+              (click)="onPageChange(totalPages)"
+              [disabled]="pagination.currentPage === totalPages"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+            >
+              <span class="sr-only">Dernière page</span>
+              ⟫
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Ajout/Modification -->
+  <div *ngIf="showAddModal || editingUser" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+      <h2 class="text-xl font-bold mb-4">{{ editingUser ? 'Modifier' : 'Ajouter' }} un utilisateur</h2>
+      
+      <form [formGroup]="userForm" (ngSubmit)="saveUser()" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+          <input 
+            type="text"
+            formControlName="name"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input 
+            type="email"
+            formControlName="email"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
+          <select 
+            formControlName="grade"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Sélectionner un grade</option>
+            <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
+          <select 
+            formControlName="role"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Sélectionner un rôle</option>
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">PMM</label>
+          <select 
+            formControlName="pmm_id"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md"
+          >
+            <option value="">Sélectionner un PMM</option>
+            <option *ngFor="let pmm of pmms" [value]="pmm.id">
+              {{ pmm.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button 
+            type="button"
+            (click)="closeModal()"
+            class="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+          >
+            Annuler
+          </button>
+          <button 
+            type="submit"
+            [disabled]="userForm.invalid || loading"
+            class="px-4 py-2 bg-[#001A70] text-white rounded-md hover:bg-[#002395] disabled:opacity-50"
+          >
+            {{ loading ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div> 
+
+
+### src/app/pages/users/users.component.ts
+<a id='src-app-pages-users-users.component.ts'></a>
+
+typescript
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User, PMM } from './user.model';
+import { UsersService } from './users.service';
+
+type SortableColumns = keyof User | 'pmm.name';
+
+interface SortConfig {
+  column: SortableColumns | null;
+  direction: 'asc' | 'desc';
+}
+
+interface PaginationConfig {
+  currentPage: number;
+  pageSize: number;
+  totalItems: number;
+}
+
+@Component({
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css']
+})
+export class UsersComponent implements OnInit {
+  users: User[] = [];
+  filteredUsers: User[] = [];
+  searchTerm = '';
+  gradeFilter = '';
+  roleFilter = '';
+  showAddModal = false;
+  editingUser: User | null = null;
+  loading = false;
+  userForm: FormGroup;
+  pmms: PMM[] = [];
+
+  grades = ['Amiral', 'Vice-amiral', 'Contre-amiral', 'Capitaine de vaisseau', 'Capitaine de frégate', 'Lieutenant de vaisseau'];
+  roles = ['PLATFORM_ADMIN', 'PMM_ADMIN', 'STAGIAIRE'];
+
+  sort: SortConfig = {
+    column: null,
+    direction: 'asc'
+  };
+
+  pagination: PaginationConfig = {
+    currentPage: 1,
+    pageSize: 10,
+    totalItems: 0
+  };
+
+  pageSizeOptions = [5, 10, 25, 50];
+  paginatedUsers: User[] = [];
+
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly usersService: UsersService
+  ) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      grade: [''],
+      role: ['', Validators.required],
+      pmm_id: ['']
+    });
+  }
+
+  async ngOnInit() {
+    await Promise.all([
+      this.loadUsers(),
+      this.loadPMMs()
+    ]);
+  }
+
+  async loadUsers() {
+    try {
+      this.users = await this.usersService.getUsers();
+      this.filterUsers();
+    } catch (error) {
+      console.error('Erreur lors du chargement des utilisateurs:', error);
+    }
+  }
+
+  async loadPMMs() {
+    try {
+      this.pmms = await this.usersService.getPMMs();
+    } catch (error) {
+      console.error('Erreur lors du chargement des PMMs:', error);
+    }
+  }
+
+  filterUsers() {
+    this.filteredUsers = this.users.filter(user => {
+      const matchesSearch = !this.searchTerm || 
+        user.name?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.email?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.grade?.toLowerCase().includes(this.searchTerm.toLowerCase());
+
+      const matchesGrade = !this.gradeFilter || user.grade === this.gradeFilter;
+      const matchesRole = !this.roleFilter || user.role === this.roleFilter;
+
+      return matchesSearch && matchesGrade && matchesRole;
+    });
+
+    if (this.sort.column) {
+      this.sortUsers(this.sort.column);
+    }
+
+    this.pagination.totalItems = this.filteredUsers.length;
+    this.updatePage();
+  }
+
+  updatePage() {
+    const startIndex = (this.pagination.currentPage - 1) * this.pagination.pageSize;
+    const endIndex = startIndex + this.pagination.pageSize;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number) {
+    this.pagination.currentPage = page;
+    this.updatePage();
+  }
+
+  onPageSizeChange(size: number) {
+    this.pagination.pageSize = size;
+    this.pagination.currentPage = 1; // Retour à la première page
+    this.updatePage();
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.pagination.totalItems / this.pagination.pageSize);
+  }
+
+  get pages(): number[] {
+    const totalPages = this.totalPages;
+    const currentPage = this.pagination.currentPage;
+    const pages: number[] = [];
+    
+    // Afficher maximum 5 pages avec la page courante au centre si possible
+    let startPage = Math.max(1, currentPage - 2);
+    let endPage = Math.min(totalPages, startPage + 4);
+    
+    if (endPage - startPage < 4) {
+      startPage = Math.max(1, endPage - 4);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    
+    return pages;
+  }
+
+  editUser(user: User) {
+    this.editingUser = user;
+    this.userForm.patchValue({
+      name: user.name,
+      email: user.email,
+      grade: user.grade,
+      role: user.role,
+      pmm_id: user.pmm_id
+    });
+  }
+
+  async deleteUser(user: User) {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) return;
+
+    try {
+      await this.usersService.deleteUser(user.id);
+      await this.loadUsers();
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+    }
+  }
+
+  async saveUser() {
+    if (this.userForm.invalid) return;
+
+    this.loading = true;
+    try {
+      if (this.editingUser) {
+        await this.usersService.updateUser(this.editingUser.id, this.userForm.value);
+      } else {
+        await this.usersService.createUser(this.userForm.value);
+      }
+
+      await this.loadUsers();
+      this.closeModal();
+    } catch (error) {
+      console.error('Erreur lors de l\'enregistrement:', error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  closeModal() {
+    this.showAddModal = false;
+    this.editingUser = null;
+    this.userForm.reset();
+  }
+
+  sortUsers(column: SortableColumns) {
+    if (this.sort.column === column) {
+      this.sort.direction = this.sort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sort.column = column;
+      this.sort.direction = 'asc';
+    }
+
+    this.filteredUsers.sort((a, b) => {
+      let valueA: any;
+      let valueB: any;
+
+      if (column === 'pmm.name') {
+        valueA = a.pmm?.name ?? '';
+        valueB = b.pmm?.name ?? '';
+      } else {
+        valueA = a[column] ?? '';
+        valueB = b[column] ?? '';
+      }
+      
+      if (valueA < valueB) return this.sort.direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sort.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    this.updatePage();
+  }
+
+  getSortIcon(column: SortableColumns): string {
+    if (this.sort.column !== column) return '↕️';
+    return this.sort.direction === 'asc' ? '↑' : '↓';
+  }
+
+  getLastDisplayedItem(): number {
+    return Math.min(
+      this.pagination.currentPage * this.pagination.pageSize,
+      this.pagination.totalItems
+    );
+  }
+} 
+
+
+### src/app/pages/users/users.service.ts
+<a id='src-app-pages-users-users.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { supabase } from '../../config/supabase.config';
+import { User, PMM } from './user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService {
+  async getUsers(): Promise<User[]> {
+    const { data, error } = await supabase
+      .from('utilisateur')
+      .select(`
+        *,
+        pmm:pmm_id (
+          id,
+          name,
+          description,
+          address,
+          phone,
+          gps,
+          created_at
+        )
+      `)
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  }
+
+  async getPMMs(): Promise<PMM[]> {
+    const { data, error } = await supabase
+      .from('pmm')
+      .select('*')
+      .is('deleted_at', null)
+      .order('name');
+
+    if (error) throw error;
+    return data;
+  }
+
+  async createUser(userData: Partial<User>): Promise<User> {
+    const { data, error } = await supabase
+      .from('utilisateur')
+      .insert([userData])
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async updateUser(id: string, userData: Partial<User>): Promise<User> {
+    const { data, error } = await supabase
+      .from('utilisateur')
+      .update(userData)
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async deleteUser(id: string): Promise<void> {
+    const { error } = await supabase
+      .from('utilisateur')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+} 
+
+
+### src/app/services/auth.service.ts
+<a id='src-app-services-auth.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { supabase } from '../config/supabase.config';
+import { AuthChangeEvent, Session } from '@supabase/supabase-js';
+import { User } from '../types/user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private readonly currentUser = new BehaviorSubject<User | null>(null);
+  private initialized = false;
+  private initializationPromise: Promise<void> | null = null;
+
+  constructor(private readonly router: Router) {}
+
+  async waitForInitialization(): Promise<void> {
+    if (!this.initializationPromise) {
+      this.initializationPromise = this.initializeAuth();
+    }
+    await this.initializationPromise;
+  }
+
+  private async initializeAuth() {
+    if (this.initialized) return;
+
+    try {
+      // Vérifier d'abord la session existante
+      const { data: { session }, error } = await supabase.auth.getSession();
+      if (error) {
+        console.error('Erreur lors de la récupération de la session:', error);
+        return;
+      }
+
+      if (session?.user) {
+        await this.setCurrentUser(session.user.id);
+      }
+
+      // Configurer l'écouteur des changements d'état
+      supabase.auth.onAuthStateChange(async (event: AuthChangeEvent, session: Session | null) => {
+        
+        try {
+          if (event === 'SIGNED_IN' && session) {
+            await this.setCurrentUser(session.user.id);
+            this.router.navigate(['/dashboard']);
+          } else if (event === 'SIGNED_OUT') {
+            this.currentUser.next(null);
+            this.router.navigate(['/login']);
+          }
+        } catch (error) {
+          console.error('Erreur lors du changement d\'état:', error);
+        }
+      });
+
+      this.initialized = true;
+    } catch (error) {
+      console.error('Erreur lors de l\'initialisation de l\'auth:', error);
+      this.currentUser.next(null);
+    }
+  }
+
+  private async setCurrentUser(userId: string): Promise<void> {
+    try {
+      const { data: userData, error } = await supabase
+        .from('utilisateur')
+        .select('*')
+        .eq('id', userId)
+        .single();
+
+      if (error) throw error;
+
+      if (userData) {
+        this.currentUser.next(userData);
+      } else {
+        console.error('Aucune donnée utilisateur trouvée');
+        await this.signOut();
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données utilisateur:', error);
+      await this.signOut();
+    }
+  }
+
+  async signIn(email: string, password: string): Promise<void> {
+    try {
+      const { data: { session }, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) throw error;
+      
+      if (session) {
+        await this.setCurrentUser(session.user.id);
+        this.router.navigate(['/dashboard']);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la connexion:', error);
+      throw error;
+    }
+  }
+
+  async signOut(): Promise<void> {
+    try {
+      await supabase.auth.signOut();
+      this.currentUser.next(null);
+      this.router.navigate(['/login']);
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.currentUser.value;
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUser.value;
+  }
+
+  async getUserRole(): Promise<string> {
+    return this.currentUser.value?.role ?? '';
+  }
+}
+
+
+### src/app/services/sidebar.service.ts
+<a id='src-app-services-sidebar.service.ts'></a>
+
+typescript
+import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { SidebarLink, SidebarSection } from '../components/sidebar/sidebar.types';
+import { SIDEBAR_CONFIG } from '../components/sidebar/sidebar.config';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SidebarService {
+  private _isOpen = true;
+
+  constructor(private readonly authService: AuthService) {}
+
+  get isOpen(): boolean {
+    return this._isOpen;
+  }
+
+  toggle() {
+    this._isOpen = !this._isOpen;
+  }
+
+  async getSidebarSections(): Promise<SidebarSection[]> {
+    const userRole = await this.authService.getUserRole();
+    
+    return SIDEBAR_CONFIG.map(section => ({
+      ...section,
+      links: section.links.filter(link => 
+        !link.roles || (userRole && link.roles.includes(userRole))
+      )
+    })).filter(section => section.links.length > 0);
+  }
+
+  isLinkActive(link: SidebarLink, currentPath: string): boolean {
+    return currentPath.startsWith(link.path);
+  }
+} 
+
+
+### src/app/types/supabase.ts
+<a id='src-app-types-supabase.ts'></a>
+
+typescript
+export interface AuthSession {
+  user: User | null;
+  access_token: string | null;
+}
+
+export interface User {
+  id: string;
+  email?: string;
+  user_metadata?: any;
+}
+
+export interface AuthError {
+  message: string;
+} 
+
+
+### src/app/types/user.model.ts
+<a id='src-app-types-user.model.ts'></a>
+
+typescript
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  grade?: string;
+  role?: string;
+  created_at: string;
+  deleted_at?: string;
+  pmm_id?: string;
+} 
+
+
+### src/index.html
+<a id='src-index.html'></a>
+
+html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PMM - Plateforme de Gestion des Manifestations</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+
+
+### src/main.ts
+<a id='src-main.ts'></a>
+
+typescript
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch(err => console.error(err));
+
+
