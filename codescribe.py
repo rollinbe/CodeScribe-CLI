@@ -390,7 +390,8 @@ def main():
 
     source_folder = os.path.abspath(args.source)
     if not os.path.isdir(source_folder):
-        print(f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.")
+        print(f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.",
+              file=sys.stderr)
         sys.exit(1)
 
     # Détermination du mode de sortie (MD ou TXT) et du nom de fichier
