@@ -1,9 +1,25 @@
-.idea
+.idea/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyproj
 *.pyo
-*.DS_Store
+*.pyd
 .venv/
-env/
+.venv*/
+.env
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Dist
 dist/
 build/
+
