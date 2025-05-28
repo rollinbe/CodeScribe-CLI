@@ -29,17 +29,18 @@ import textwrap
 # CONFIGURATION PAR DÉFAUT
 # --------------------------------------------------------------------------
 
-__version__ = "1.2.0"
+__version__ = "1.1.0"
 
 DEFAULT_OUTPUT_MD = "structure_complete.md"
 DEFAULT_OUTPUT_TXT = "structure_complete.txt"
 
-EXCLUDED_DIRS = {".git", "node_modules", "__pycache__", ".venv", "bin", "obj"}
+EXCLUDED_DIRS = {".git", "node_modules", "__pycache__", ".venv", "bin", "obj", "dist", "build",
+                 "out", ".vscode", ".idea", "target", ".pytest_cache", "venv"}
 
 DEFAULT_INCLUDED_EXT = {
     ".cs", ".csproj", ".sln",
     ".ts", ".html", ".scss", ".json",
-    ".py"
+    ".py", ".txt", ".md"
 }
 
 # Mapping extension -> syntaxe pour les blocs de code Markdown
