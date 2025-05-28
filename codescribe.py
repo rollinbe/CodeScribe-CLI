@@ -248,7 +248,7 @@ def gather_project_tree(root_path: str,
             _, ext = os.path.splitext(file_name)
             if ext.lower() in included_exts:
                 # Si --ignore-spec est activé, on ignore les .spec.ts
-                if ignore_spec and file_name.endswith(".spec.ts"):
+                if ignore_spec and file_name.lower().endswith(".spec.ts"):
                     continue
 
                 # Construire le chemin relatif pour l'affichage
@@ -330,11 +330,11 @@ def generate_markdown_report(root_path: str,
     # Logo ASCII (si --no-logo n'est pas précisé)
     if not no_logo:
         lines.append(
-            """```
-       _____          _       _____           _ _          
-      / ____|        | |     / ____|         (_) |         
-     | |     ___   __| | ___| (___   ___ _ __ _| |__   ___ 
-     | |    / _ \ / _` |/ _ \\___ \ / __| '__| | '_ \ / _ \\
+            r"""```
+       _____          _       _____           _ _
+      / ____|        | |     / ____|         (_) |
+     | |     ___   __| | ___| (___   ___ _ __ _| |__   ___
+     | |    / _ \ / _` |/ _ \\___ \ / __| '__| | '_ \ / _ \
      | |___| (_) | (_| |  __/____) | (__| |  | | |_) |  __/
       \_____\___/ \__,_|\___|_____/ \___|_|  |_|_.__/ \___|
     ```"""

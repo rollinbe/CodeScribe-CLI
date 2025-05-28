@@ -25,8 +25,9 @@ def sample_project(tmp_path):
     # Fichier Python "métier"
     (proj_dir / "main.py").write_text("#!/usr/bin/env python3\nprint('Hello World')\n")
 
-    # Fichier spec.ts (devrait être ignoré si --ignore-spec)
+    # Fichiers spec.ts (devraient être ignorés si --ignore-spec)
     (proj_dir / "useless.spec.ts").write_text("describe('Useless', () => {});\n")
+    (proj_dir / "AnotherFile.SPEC.ts").write_text("describe('Upper', () => {});\n")
 
     # Un package-lock.json, par ex. (à ignorer si --minimal)
     (proj_dir / "package-lock.json").write_text("{}")
@@ -112,8 +113,9 @@ def test_codescribe_ignore_spec(sample_project, tmp_path):
     assert result.returncode == 0
 
     content = output_md.read_text(encoding="utf-8")
-    # useless.spec.ts ne devrait pas être présent
+    # Les fichiers .spec.ts ne doivent pas être présents
     assert "useless.spec.ts" not in content, "Le fichier .spec.ts doit être exclu en --ignore-spec"
+    assert "AnotherFile.SPEC.ts" not in content, "La vérification doit être insensible à la casse"
 
 
 def test_codescribe_max_size(sample_project, tmp_path):
