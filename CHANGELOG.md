@@ -11,3 +11,4 @@ Toutes les modifications notables seront listées ici.
 - Ajout de l'option `--exclude-ext` pour exclure des extensions.
 - Ajout des options `--version` et `--default-ext`.
 - Ajout de l'option `--git-ignore` pour exclure selon le fichier `.gitignore`.
+- Ajout de l'option `--exclude-dir` pour ignorer des répertoires.

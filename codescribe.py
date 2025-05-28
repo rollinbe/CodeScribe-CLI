@@ -23,7 +23,6 @@ Auteur : Benjamin ROLLIN
 import os
 import sys
 import argparse
-import textwrap
 
 # --------------------------------------------------------------------------
 # CONFIGURATION PAR DÉFAUT
@@ -215,6 +214,12 @@ def parse_arguments():
         default=[],
         help="Exclure certaines extensions (ex: --exclude-ext .log .tmp)."
     )
+    parser.add_argument(
+        "--exclude-dir",
+        nargs="+",
+        default=[],
+        help="Exclut certains répertoires du rapport (ex: --exclude-dir build dist)."
+    )
 
     parser.add_argument(
         "--version",
@@ -262,17 +267,20 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def is_hidden_or_excluded(path: str) -> bool:
+def is_hidden_or_excluded(path: str, extra_dirs: set | None = None) -> bool:
     """
     Détermine si un fichier ou un dossier doit être exclu en général (hors --minimal).
     - Exclut les dossiers commençant par '.' ou présents dans EXCLUDED_DIRS.
     - Exclut les fichiers cachés (commençant par '.').
+    - Tient compte des répertoires supplémentaires passés via ``extra_dirs``.
     """
     name = os.path.basename(path)
     # Exclusion si c'est un dossier caché ou dans EXCLUDED_DIRS
     if name.startswith('.') and os.path.isdir(path):
         return True
     if name in EXCLUDED_DIRS and os.path.isdir(path):
+        return True
+    if extra_dirs and name in extra_dirs and os.path.isdir(path):
         return True
     # Exclusion des fichiers cachés
     if name.startswith('.') and os.path.isfile(path):
@@ -282,7 +290,8 @@ def is_hidden_or_excluded(path: str) -> bool:
 
 def gather_project_tree(root_path: str,
                         included_exts: set,
-                        ignore_spec: bool = False) -> list:
+                        ignore_spec: bool = False,
+                        exclude_dirs: set | None = None) -> list:
     """
     Parcourt récursivement le répertoire root_path et retourne la liste
     de tous les fichiers dont l'extension est dans included_exts.
@@ -294,10 +303,10 @@ def gather_project_tree(root_path: str,
     for current_root, dirs, files in os.walk(root_path, topdown=True):
         # Filtrer in-place les dossiers exclus
         dirs[:] = [d for d in dirs
-                   if not is_hidden_or_excluded(os.path.join(current_root, d))]
+                   if not is_hidden_or_excluded(os.path.join(current_root, d), exclude_dirs)]
         for file_name in files:
             file_path = os.path.join(current_root, file_name)
-            if is_hidden_or_excluded(file_path):
+            if is_hidden_or_excluded(file_path, exclude_dirs):
                 continue
 
             # Vérifier l'extension
@@ -396,7 +405,7 @@ def generate_markdown_report(root_path: str,
     ```"""
         )
 
-    lines.append(f"# Rapport CodeScribe\n")
+    lines.append("# Rapport CodeScribe\n")
     lines.append(f"Chemin scanné : `{root_path}`\n")
 
     # Section 1 : Arborescence
@@ -493,7 +502,13 @@ def main():
 
 
     # 1) Récupérer la liste de tous les fichiers de base
-    all_files = gather_project_tree(source_folder, included_exts, ignore_spec=args.ignore_spec)
+    extra_excluded_dirs = set(args.exclude_dir)
+    all_files = gather_project_tree(
+        source_folder,
+        included_exts,
+        ignore_spec=args.ignore_spec,
+        exclude_dirs=extra_excluded_dirs,
+    )
 
     # 1bis) Appliquer les règles du .gitignore si demandé
     if args.git_ignore:
@@ -574,7 +589,7 @@ def main():
     # 6) Afficher la taille estimée et l'estimation de tokens
     total_ko = total_chars / 1024.0
     approx_tokens = sum(approximate_token_count(f["content"]) for f in files_data)
-    print(f"\nAnalyse terminée.")
+    print("\nAnalyse terminée.")
     print(f"Fichiers retenus : {len(files_data)}")
     print(f"Volume total lu : ~{total_ko:.2f} Ko")
     print(f"Estimation tokens : ~{approx_tokens} tokens")

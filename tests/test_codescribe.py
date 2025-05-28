@@ -1,7 +1,5 @@
-import os
 import subprocess
 import pytest
-import shutil
 
 @pytest.fixture
 def sample_project(tmp_path):
@@ -215,6 +213,31 @@ def test_codescribe_exclude_ext(sample_project, tmp_path):
     assert "main.py" not in content
     assert "bigfile.py" not in content
     assert "Program.cs" in content
+
+
+def test_codescribe_exclude_dir(sample_project, tmp_path):
+    """Vérifie l'option --exclude-dir."""
+    # Ajout d'un dossier à exclure
+    extra = sample_project / "cache"
+    extra.mkdir()
+    (extra / "temp.txt").write_text("cache")
+
+    output_md = tmp_path / "export_excludedir.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project),
+        "--exclude-dir",
+        "cache",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+
+    content = output_md.read_text(encoding="utf-8")
+    assert "cache" not in content
 
 
 def test_codescribe_version_option():
