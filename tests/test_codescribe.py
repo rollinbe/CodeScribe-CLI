@@ -1,7 +1,5 @@
-import os
 import subprocess
 import pytest
-import shutil
 
 @pytest.fixture
 def sample_project(tmp_path):
@@ -25,8 +23,9 @@ def sample_project(tmp_path):
     # Fichier Python "métier"
     (proj_dir / "main.py").write_text("#!/usr/bin/env python3\nprint('Hello World')\n")
 
-    # Fichier spec.ts (devrait être ignoré si --ignore-spec)
+    # Fichiers spec.ts (devraient être ignorés si --ignore-spec)
     (proj_dir / "useless.spec.ts").write_text("describe('Useless', () => {});\n")
+    (proj_dir / "AnotherFile.SPEC.ts").write_text("describe('Upper', () => {});\n")
 
     # Un package-lock.json, par ex. (à ignorer si --minimal)
     (proj_dir / "package-lock.json").write_text("{}")
@@ -45,6 +44,18 @@ def sample_project(tmp_path):
     (proj_dir / "Program.cs").write_text("namespace Test { class Program { static void Main() {} } }")
 
     return proj_dir
+
+
+@pytest.fixture
+def sample_project_gitignore(sample_project):
+    """Ajoute un fichier .gitignore au projet de test."""
+    gitignore = sample_project / ".gitignore"
+    gitignore.write_text("ignored_dir/\nsecret.txt\n")
+
+    (sample_project / "ignored_dir").mkdir()
+    (sample_project / "ignored_dir" / "hidden.py").write_text("pass\n")
+    (sample_project / "secret.txt").write_text("secret")
+    return sample_project
 
 
 def test_codescribe_help():
@@ -112,8 +123,9 @@ def test_codescribe_ignore_spec(sample_project, tmp_path):
     assert result.returncode == 0
 
     content = output_md.read_text(encoding="utf-8")
-    # useless.spec.ts ne devrait pas être présent
+    # Les fichiers .spec.ts ne doivent pas être présents
     assert "useless.spec.ts" not in content, "Le fichier .spec.ts doit être exclu en --ignore-spec"
+    assert "AnotherFile.SPEC.ts" not in content, "La vérification doit être insensible à la casse"
 
 
 def test_codescribe_max_size(sample_project, tmp_path):
@@ -183,3 +195,119 @@ def test_codescribe_txt_only(sample_project, tmp_path):
     # Vérifier qu'aucun fichier .md n'a été généré
     possible_md = tmp_path / "export_only.md"
     assert not possible_md.exists(), "Aucun fichier .md ne doit être généré en mode --txt seulement"
+
+
+def test_codescribe_exclude_ext(sample_project, tmp_path):
+    """Vérifie l'option --exclude-ext."""
+    output_md = tmp_path / "export_exclude.md"
+    cmd = [
+        "python", "codescribe.py",
+        "--source", str(sample_project),
+        "--exclude-ext", ".py",
+        "--output", str(output_md)
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+
+    content = output_md.read_text(encoding="utf-8")
+    assert "main.py" not in content
+    assert "bigfile.py" not in content
+    assert "Program.cs" in content
+
+
+def test_codescribe_exclude_dir(sample_project, tmp_path):
+    """Vérifie l'option --exclude-dir."""
+    # Ajout d'un dossier à exclure
+    extra = sample_project / "cache"
+    extra.mkdir()
+    (extra / "temp.txt").write_text("cache")
+
+    output_md = tmp_path / "export_excludedir.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project),
+        "--exclude-dir",
+        "cache",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+
+    content = output_md.read_text(encoding="utf-8")
+    assert "cache" not in content
+
+
+def test_codescribe_version_option():
+    """Vérifie l'option --version."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("codescribe", "codescribe.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    result = subprocess.run([
+        "python",
+        "codescribe.py",
+        "--version",
+    ], capture_output=True)
+    assert result.returncode == 0
+    assert module.__version__ in result.stdout.decode()
+
+
+def test_codescribe_default_ext_option():
+    """Vérifie l'option --default-ext."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("codescribe", "codescribe.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    result = subprocess.run([
+        "python",
+        "codescribe.py",
+        "--default-ext",
+    ], capture_output=True)
+    assert result.returncode == 0
+    out = result.stdout.decode()
+    # Chaque extension attendue doit apparaître
+    for ext in module.DEFAULT_INCLUDED_EXT:
+        assert ext in out
+
+
+def test_git_ignore_option(sample_project_gitignore, tmp_path):
+    """Vérifie que l'option --git-ignore respecte le .gitignore."""
+    output_md = tmp_path / "gitignore.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project_gitignore),
+        "--git-ignore",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+    content = output_md.read_text(encoding="utf-8")
+    assert "secret.txt" not in content
+    assert "ignored_dir" not in content
+
+
+def test_git_ignore_missing(sample_project, tmp_path):
+    """Erreur si --git-ignore sans fichier .gitignore."""
+    output_md = tmp_path / "err.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project),
+        "--git-ignore",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode != 0
+    assert b".gitignore" in result.stderr

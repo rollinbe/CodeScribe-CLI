@@ -23,21 +23,23 @@ Auteur : Benjamin ROLLIN
 import os
 import sys
 import argparse
-import textwrap
 
 # --------------------------------------------------------------------------
 # CONFIGURATION PAR DÉFAUT
 # --------------------------------------------------------------------------
 
+__version__ = "1.1.0"
+
 DEFAULT_OUTPUT_MD = "structure_complete.md"
 DEFAULT_OUTPUT_TXT = "structure_complete.txt"
 
-EXCLUDED_DIRS = {".git", "node_modules", "__pycache__", ".venv", "bin", "obj"}
+EXCLUDED_DIRS = {".git", "node_modules", "__pycache__", ".venv", "bin", "obj", "dist", "build",
+                 "out", ".vscode", ".idea", "target", ".pytest_cache", "venv"}
 
 DEFAULT_INCLUDED_EXT = {
     ".cs", ".csproj", ".sln",
     ".ts", ".html", ".scss", ".json",
-    ".py"
+    ".py", ".txt", ".md"
 }
 
 # Mapping extension -> syntaxe pour les blocs de code Markdown
@@ -142,6 +144,36 @@ def approximate_token_count(text: str) -> int:
     return len(text) // 4
 
 
+def load_gitignore_patterns(path: str) -> list:
+    """Lit le fichier .gitignore et renvoie la liste des motifs."""
+    patterns = []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                patterns.append(line)
+    except Exception:
+        pass
+    return patterns
+
+
+def is_gitignored(rel_path: str, patterns: list) -> bool:
+    """Retourne True si rel_path correspond à un motif de .gitignore."""
+    from fnmatch import fnmatch
+
+    for pat in patterns:
+        if pat.endswith("/"):
+            if rel_path.startswith(pat.rstrip("/")):
+                return True
+        if fnmatch(rel_path, pat):
+            return True
+        if fnmatch(os.path.basename(rel_path), pat):
+            return True
+    return False
+
+
 # --------------------------------------------------------------------------
 # FONCTIONS PRINCIPALES
 # --------------------------------------------------------------------------
@@ -153,8 +185,8 @@ def parse_arguments():
     )
     parser.add_argument(
         "--source",
-        required=True,
-        help="Chemin vers le dossier source à scanner (obligatoire)."
+        required=False,
+        help=("Chemin vers le dossier source à scanner (obligatoire sauf avec --version ou --default-ext).")
     )
     parser.add_argument(
         "--output",
@@ -177,6 +209,30 @@ def parse_arguments():
         help="Ajouter d'autres extensions à inclure (ex: --include-ext .txt .md)."
     )
     parser.add_argument(
+        "--exclude-ext",
+        nargs="+",
+        default=[],
+        help="Exclure certaines extensions (ex: --exclude-ext .log .tmp)."
+    )
+    parser.add_argument(
+        "--exclude-dir",
+        nargs="+",
+        default=[],
+        help="Exclut certains répertoires du rapport (ex: --exclude-dir build dist)."
+    )
+
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Affiche la version de CodeScribe et quitte."
+    )
+    parser.add_argument(
+        "--default-ext",
+        action="store_true",
+        help="Affiche la liste des extensions incluses par défaut et quitte."
+    )
+
+    parser.add_argument(
         "--no-logo",
         action="store_true",
         help="Désactive l'affichage du logo ASCII en haut du fichier."
@@ -197,6 +253,11 @@ def parse_arguments():
         action="store_true",
         help="En plus du .md, génère un fichier .txt (si vous souhaitez les deux)."
     )
+    parser.add_argument(
+        "--git-ignore",
+        action="store_true",
+        help="Exclut les fichiers listés dans le .gitignore du projet."
+    )
     # Option minimal
     parser.add_argument(
         "--minimal",
@@ -206,17 +267,20 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def is_hidden_or_excluded(path: str) -> bool:
+def is_hidden_or_excluded(path: str, extra_dirs: set | None = None) -> bool:
     """
     Détermine si un fichier ou un dossier doit être exclu en général (hors --minimal).
     - Exclut les dossiers commençant par '.' ou présents dans EXCLUDED_DIRS.
     - Exclut les fichiers cachés (commençant par '.').
+    - Tient compte des répertoires supplémentaires passés via ``extra_dirs``.
     """
     name = os.path.basename(path)
     # Exclusion si c'est un dossier caché ou dans EXCLUDED_DIRS
     if name.startswith('.') and os.path.isdir(path):
         return True
     if name in EXCLUDED_DIRS and os.path.isdir(path):
+        return True
+    if extra_dirs and name in extra_dirs and os.path.isdir(path):
         return True
     # Exclusion des fichiers cachés
     if name.startswith('.') and os.path.isfile(path):
@@ -226,7 +290,8 @@ def is_hidden_or_excluded(path: str) -> bool:
 
 def gather_project_tree(root_path: str,
                         included_exts: set,
-                        ignore_spec: bool = False) -> list:
+                        ignore_spec: bool = False,
+                        exclude_dirs: set | None = None) -> list:
     """
     Parcourt récursivement le répertoire root_path et retourne la liste
     de tous les fichiers dont l'extension est dans included_exts.
@@ -238,17 +303,17 @@ def gather_project_tree(root_path: str,
     for current_root, dirs, files in os.walk(root_path, topdown=True):
         # Filtrer in-place les dossiers exclus
         dirs[:] = [d for d in dirs
-                   if not is_hidden_or_excluded(os.path.join(current_root, d))]
+                   if not is_hidden_or_excluded(os.path.join(current_root, d), exclude_dirs)]
         for file_name in files:
             file_path = os.path.join(current_root, file_name)
-            if is_hidden_or_excluded(file_path):
+            if is_hidden_or_excluded(file_path, exclude_dirs):
                 continue
 
             # Vérifier l'extension
             _, ext = os.path.splitext(file_name)
             if ext.lower() in included_exts:
                 # Si --ignore-spec est activé, on ignore les .spec.ts
-                if ignore_spec and file_name.endswith(".spec.ts"):
+                if ignore_spec and file_name.lower().endswith(".spec.ts"):
                     continue
 
                 # Construire le chemin relatif pour l'affichage
@@ -330,17 +395,17 @@ def generate_markdown_report(root_path: str,
     # Logo ASCII (si --no-logo n'est pas précisé)
     if not no_logo:
         lines.append(
-            """```
-       _____          _       _____           _ _          
-      / ____|        | |     / ____|         (_) |         
-     | |     ___   __| | ___| (___   ___ _ __ _| |__   ___ 
-     | |    / _ \ / _` |/ _ \\___ \ / __| '__| | '_ \ / _ \\
+            r"""```
+       _____          _       _____           _ _
+      / ____|        | |     / ____|         (_) |
+     | |     ___   __| | ___| (___   ___ _ __ _| |__   ___
+     | |    / _ \ / _` |/ _ \\___ \ / __| '__| | '_ \ / _ \
      | |___| (_) | (_| |  __/____) | (__| |  | | |_) |  __/
       \_____\___/ \__,_|\___|_____/ \___|_|  |_|_.__/ \___|
     ```"""
         )
 
-    lines.append(f"# Rapport CodeScribe\n")
+    lines.append("# Rapport CodeScribe\n")
     lines.append(f"Chemin scanné : `{root_path}`\n")
 
     # Section 1 : Arborescence
@@ -388,10 +453,24 @@ def generate_text_report(markdown_report: str) -> str:
 def main():
     args = parse_arguments()
 
+    if args.version:
+        print(__version__)
+        return
+
+    if args.default_ext:
+        print(" ".join(sorted(DEFAULT_INCLUDED_EXT)))
+        return
+
+    if not args.source:
+        print("Erreur : l'argument --source est requis.", file=sys.stderr)
+        sys.exit(1)
+
     source_folder = os.path.abspath(args.source)
     if not os.path.isdir(source_folder):
-        print(f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.",
-              file=sys.stderr)
+        print(
+            f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Détermination du mode de sortie (MD ou TXT) et du nom de fichier
@@ -416,9 +495,38 @@ def main():
         if not e.startswith("."):
             e = f".{e}"
         included_exts.add(e.lower())
+    for e in args.exclude_ext:
+        if not e.startswith("."):
+            e = f".{e}"
+        included_exts.discard(e.lower())
+
 
     # 1) Récupérer la liste de tous les fichiers de base
-    all_files = gather_project_tree(source_folder, included_exts, ignore_spec=args.ignore_spec)
+    extra_excluded_dirs = set(args.exclude_dir)
+    all_files = gather_project_tree(
+        source_folder,
+        included_exts,
+        ignore_spec=args.ignore_spec,
+        exclude_dirs=extra_excluded_dirs,
+    )
+
+    # 1bis) Appliquer les règles du .gitignore si demandé
+    if args.git_ignore:
+        gitignore_path = os.path.join(source_folder, ".gitignore")
+        if not os.path.isfile(gitignore_path):
+            print(
+                "Erreur : l'option --git-ignore est utilisée mais aucun fichier .gitignore n'a été trouvé.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        patterns = load_gitignore_patterns(gitignore_path)
+        filtered = []
+        for rel_path, abs_path in all_files:
+            if is_gitignored(rel_path, patterns):
+                continue
+            filtered.append((rel_path, abs_path))
+        all_files = filtered
 
     # 2) Si --minimal, on filtre les fichiers "non métier"
     if args.minimal:
@@ -481,7 +589,7 @@ def main():
     # 6) Afficher la taille estimée et l'estimation de tokens
     total_ko = total_chars / 1024.0
     approx_tokens = sum(approximate_token_count(f["content"]) for f in files_data)
-    print(f"\nAnalyse terminée.")
+    print("\nAnalyse terminée.")
     print(f"Fichiers retenus : {len(files_data)}")
     print(f"Volume total lu : ~{total_ko:.2f} Ko")
     print(f"Estimation tokens : ~{approx_tokens} tokens")
