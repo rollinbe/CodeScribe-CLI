@@ -11,6 +11,7 @@
 - **Option `--exclude-ext`** pour exclure des extensions spécifiques.
 - **Option `--version`** pour afficher la version actuelle.
 - **Option `--default-ext`** pour lister les extensions incluses par défaut.
+- **Option `--git-ignore`** pour exclure les fichiers ignorés par Git.
 - **Option `--no-logo`** pour retirer le logo ASCII dans la sortie.
 - **Mode `--txt` ou `--export-txt`** pour obtenir un rapport texte.
 - **Paramètre `--output`** pour choisir le nom du fichier généré.
@@ -49,6 +50,9 @@ codescribe --source /path/to/myproject --exclude-ext .log .tmp
 
 # Afficher la version
 codescribe --version
+# Respecter le .gitignore
+codescribe --source /path/to/myproject --git-ignore
+
 
 # Lister les extensions par défaut
 codescribe --default-ext
