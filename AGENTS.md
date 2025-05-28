@@ -38,7 +38,7 @@ All new .py files must include encoding and a module-level docstring.
 Keep user-facing help texts clear, in French.
 
 Git & Commits
-Do not create new branches.
+for create new branch use only basic char compatible with url .
 
 Always leave the working tree in a clean state (git status must be clean).
 
