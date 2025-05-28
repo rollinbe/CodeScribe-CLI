@@ -8,6 +8,9 @@
 - **Option `--max-size`** pour limiter la lecture des fichiers volumineux.
 - **Option `--ignore-spec`** pour ignorer les tests `*.spec.ts`.
 - **Option `--include-ext`** pour ajouter d'autres extensions à analyser.
+- **Option `--exclude-ext`** pour exclure des extensions spécifiques.
+- **Option `--version`** pour afficher la version actuelle.
+- **Option `--default-ext`** pour lister les extensions incluses par défaut.
 - **Option `--no-logo`** pour retirer le logo ASCII dans la sortie.
 - **Mode `--txt` ou `--export-txt`** pour obtenir un rapport texte.
 - **Paramètre `--output`** pour choisir le nom du fichier généré.
@@ -40,6 +43,15 @@ codescribe --source /path/to/myproject --output monrapport.md
 
 # Ignorer les fichiers de test Angular
 codescribe --source /path/to/myproject --ignore-spec
+
+# Exclure certaines extensions
+codescribe --source /path/to/myproject --exclude-ext .log .tmp
+
+# Afficher la version
+codescribe --version
+
+# Lister les extensions par défaut
+codescribe --default-ext
 
 # Aide complète
 codescribe --help

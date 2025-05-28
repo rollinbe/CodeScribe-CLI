@@ -185,3 +185,58 @@ def test_codescribe_txt_only(sample_project, tmp_path):
     # Vérifier qu'aucun fichier .md n'a été généré
     possible_md = tmp_path / "export_only.md"
     assert not possible_md.exists(), "Aucun fichier .md ne doit être généré en mode --txt seulement"
+
+
+def test_codescribe_exclude_ext(sample_project, tmp_path):
+    """Vérifie l'option --exclude-ext."""
+    output_md = tmp_path / "export_exclude.md"
+    cmd = [
+        "python", "codescribe.py",
+        "--source", str(sample_project),
+        "--exclude-ext", ".py",
+        "--output", str(output_md)
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+
+    content = output_md.read_text(encoding="utf-8")
+    assert "main.py" not in content
+    assert "bigfile.py" not in content
+    assert "Program.cs" in content
+
+
+def test_codescribe_version_option():
+    """Vérifie l'option --version."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("codescribe", "codescribe.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    result = subprocess.run([
+        "python",
+        "codescribe.py",
+        "--version",
+    ], capture_output=True)
+    assert result.returncode == 0
+    assert module.__version__ in result.stdout.decode()
+
+
+def test_codescribe_default_ext_option():
+    """Vérifie l'option --default-ext."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("codescribe", "codescribe.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    result = subprocess.run([
+        "python",
+        "codescribe.py",
+        "--default-ext",
+    ], capture_output=True)
+    assert result.returncode == 0
+    out = result.stdout.decode()
+    # Chaque extension attendue doit apparaître
+    for ext in module.DEFAULT_INCLUDED_EXT:
+        assert ext in out
