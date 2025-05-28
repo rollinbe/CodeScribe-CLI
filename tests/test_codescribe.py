@@ -48,6 +48,18 @@ def sample_project(tmp_path):
     return proj_dir
 
 
+@pytest.fixture
+def sample_project_gitignore(sample_project):
+    """Ajoute un fichier .gitignore au projet de test."""
+    gitignore = sample_project / ".gitignore"
+    gitignore.write_text("ignored_dir/\nsecret.txt\n")
+
+    (sample_project / "ignored_dir").mkdir()
+    (sample_project / "ignored_dir" / "hidden.py").write_text("pass\n")
+    (sample_project / "secret.txt").write_text("secret")
+    return sample_project
+
+
 def test_codescribe_help():
     """
     Vérifie que l'appel 'python codescribe.py --help' retourne un code 0
@@ -240,3 +252,39 @@ def test_codescribe_default_ext_option():
     # Chaque extension attendue doit apparaître
     for ext in module.DEFAULT_INCLUDED_EXT:
         assert ext in out
+
+
+def test_git_ignore_option(sample_project_gitignore, tmp_path):
+    """Vérifie que l'option --git-ignore respecte le .gitignore."""
+    output_md = tmp_path / "gitignore.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project_gitignore),
+        "--git-ignore",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode == 0
+    content = output_md.read_text(encoding="utf-8")
+    assert "secret.txt" not in content
+    assert "ignored_dir" not in content
+
+
+def test_git_ignore_missing(sample_project, tmp_path):
+    """Erreur si --git-ignore sans fichier .gitignore."""
+    output_md = tmp_path / "err.md"
+    cmd = [
+        "python",
+        "codescribe.py",
+        "--source",
+        str(sample_project),
+        "--git-ignore",
+        "--output",
+        str(output_md),
+    ]
+    result = subprocess.run(cmd, capture_output=True)
+    assert result.returncode != 0
+    assert b".gitignore" in result.stderr

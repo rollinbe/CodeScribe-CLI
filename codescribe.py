@@ -29,7 +29,7 @@ import textwrap
 # CONFIGURATION PAR DÉFAUT
 # --------------------------------------------------------------------------
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 DEFAULT_OUTPUT_MD = "structure_complete.md"
 DEFAULT_OUTPUT_TXT = "structure_complete.txt"
@@ -145,6 +145,36 @@ def approximate_token_count(text: str) -> int:
     return len(text) // 4
 
 
+def load_gitignore_patterns(path: str) -> list:
+    """Lit le fichier .gitignore et renvoie la liste des motifs."""
+    patterns = []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                patterns.append(line)
+    except Exception:
+        pass
+    return patterns
+
+
+def is_gitignored(rel_path: str, patterns: list) -> bool:
+    """Retourne True si rel_path correspond à un motif de .gitignore."""
+    from fnmatch import fnmatch
+
+    for pat in patterns:
+        if pat.endswith("/"):
+            if rel_path.startswith(pat.rstrip("/")):
+                return True
+        if fnmatch(rel_path, pat):
+            return True
+        if fnmatch(os.path.basename(rel_path), pat):
+            return True
+    return False
+
+
 # --------------------------------------------------------------------------
 # FONCTIONS PRINCIPALES
 # --------------------------------------------------------------------------
@@ -217,6 +247,11 @@ def parse_arguments():
         "--export-txt",
         action="store_true",
         help="En plus du .md, génère un fichier .txt (si vous souhaitez les deux)."
+    )
+    parser.add_argument(
+        "--git-ignore",
+        action="store_true",
+        help="Exclut les fichiers listés dans le .gitignore du projet."
     )
     # Option minimal
     parser.add_argument(
@@ -459,6 +494,24 @@ def main():
 
     # 1) Récupérer la liste de tous les fichiers de base
     all_files = gather_project_tree(source_folder, included_exts, ignore_spec=args.ignore_spec)
+
+    # 1bis) Appliquer les règles du .gitignore si demandé
+    if args.git_ignore:
+        gitignore_path = os.path.join(source_folder, ".gitignore")
+        if not os.path.isfile(gitignore_path):
+            print(
+                "Erreur : l'option --git-ignore est utilisée mais aucun fichier .gitignore n'a été trouvé.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        patterns = load_gitignore_patterns(gitignore_path)
+        filtered = []
+        for rel_path, abs_path in all_files:
+            if is_gitignored(rel_path, patterns):
+                continue
+            filtered.append((rel_path, abs_path))
+        all_files = filtered
 
     # 2) Si --minimal, on filtre les fichiers "non métier"
     if args.minimal:
