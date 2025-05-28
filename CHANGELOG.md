@@ -10,6 +10,4 @@ Toutes les modifications notables seront listées ici.
 ## [1.1.0] - 2025-05-28
 - Ajout de l'option `--exclude-ext` pour exclure des extensions.
 - Ajout des options `--version` et `--default-ext`.
-
-## [1.2.0] - 2025-05-30
 - Ajout de l'option `--git-ignore` pour exclure selon le fichier `.gitignore`.

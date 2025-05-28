@@ -29,7 +29,7 @@ import textwrap
 # CONFIGURATION PAR DÉFAUT
 # --------------------------------------------------------------------------
 
-__version__ = "1.2.0"
+__version__ = "1.1.0"
 
 DEFAULT_OUTPUT_MD = "structure_complete.md"
 DEFAULT_OUTPUT_TXT = "structure_complete.txt"
