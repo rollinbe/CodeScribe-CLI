@@ -14,6 +14,7 @@
 
   ```bash
   pytest tests/
+    ```
 To test CLI behavior:
 
 python codescribe.py --source <project> --minimal
@@ -29,6 +30,9 @@ python codescribe.py --source <project> --max-size 10
 After any file move or CLI argument change, verify the full test suite still passes.
 
 Add or update tests for any new feature or fix.
+
+do not increment the version number of codescribe if it is not requested in the prompt. In this case add changes to change log in the last version at the same date
+
 
 Linting & Style
 Follow PEP8 (auto-lint with black or ruff recommended).
