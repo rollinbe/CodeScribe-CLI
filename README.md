@@ -9,6 +9,7 @@
 - **Option `--ignore-spec`** pour ignorer les tests `*.spec.ts`.
 - **Option `--include-ext`** pour ajouter d'autres extensions à analyser.
 - **Option `--exclude-ext`** pour exclure des extensions spécifiques.
+- **Option `--exclude-dir`** pour ignorer certains répertoires.
 - **Option `--version`** pour afficher la version actuelle.
 - **Option `--default-ext`** pour lister les extensions incluses par défaut.
 - **Option `--git-ignore`** pour exclure les fichiers ignorés par Git.
@@ -47,6 +48,9 @@ codescribe --source /path/to/myproject --ignore-spec
 
 # Exclure certaines extensions
 codescribe --source /path/to/myproject --exclude-ext .log .tmp
+
+# Exclure des dossiers
+codescribe --source /path/to/myproject --exclude-dir cache build
 
 # Afficher la version
 codescribe --version
