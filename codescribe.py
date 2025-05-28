@@ -29,6 +29,8 @@ import textwrap
 # CONFIGURATION PAR DÉFAUT
 # --------------------------------------------------------------------------
 
+__version__ = "1.2.0"
+
 DEFAULT_OUTPUT_MD = "structure_complete.md"
 DEFAULT_OUTPUT_TXT = "structure_complete.txt"
 
@@ -153,8 +155,8 @@ def parse_arguments():
     )
     parser.add_argument(
         "--source",
-        required=True,
-        help="Chemin vers le dossier source à scanner (obligatoire)."
+        required=False,
+        help=("Chemin vers le dossier source à scanner (obligatoire sauf avec --version ou --default-ext).")
     )
     parser.add_argument(
         "--output",
@@ -176,6 +178,24 @@ def parse_arguments():
         default=[],
         help="Ajouter d'autres extensions à inclure (ex: --include-ext .txt .md)."
     )
+    parser.add_argument(
+        "--exclude-ext",
+        nargs="+",
+        default=[],
+        help="Exclure certaines extensions (ex: --exclude-ext .log .tmp)."
+    )
+
+    parser.add_argument(
+        "--version",
+        action="store_true",
+        help="Affiche la version de CodeScribe et quitte."
+    )
+    parser.add_argument(
+        "--default-ext",
+        action="store_true",
+        help="Affiche la liste des extensions incluses par défaut et quitte."
+    )
+
     parser.add_argument(
         "--no-logo",
         action="store_true",
@@ -388,10 +408,24 @@ def generate_text_report(markdown_report: str) -> str:
 def main():
     args = parse_arguments()
 
+    if args.version:
+        print(__version__)
+        return
+
+    if args.default_ext:
+        print(" ".join(sorted(DEFAULT_INCLUDED_EXT)))
+        return
+
+    if not args.source:
+        print("Erreur : l'argument --source est requis.", file=sys.stderr)
+        sys.exit(1)
+
     source_folder = os.path.abspath(args.source)
     if not os.path.isdir(source_folder):
-        print(f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.",
-              file=sys.stderr)
+        print(
+            f"Erreur : Le dossier source '{source_folder}' est introuvable ou n'est pas un dossier.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Détermination du mode de sortie (MD ou TXT) et du nom de fichier
@@ -416,6 +450,11 @@ def main():
         if not e.startswith("."):
             e = f".{e}"
         included_exts.add(e.lower())
+    for e in args.exclude_ext:
+        if not e.startswith("."):
+            e = f".{e}"
+        included_exts.discard(e.lower())
+
 
     # 1) Récupérer la liste de tous les fichiers de base
     all_files = gather_project_tree(source_folder, included_exts, ignore_spec=args.ignore_spec)
