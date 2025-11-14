@@ -20,11 +20,12 @@
 ## Installation
 ```bash
 # Cloner le repo
-git clone https://github.com/toncomptegithub/CodeScribe-CLI.git
+git clone https://github.com/rollinbe/CodeScribe-CLI.git
 cd CodeScribe-CLI
 
 # Rendre exécutable le script
 chmod +x codescribe.py
+chmod +x install.sh
 # Lancer l'installation (copie dans /usr/local/bin)
 sudo ./install.sh
 ```
